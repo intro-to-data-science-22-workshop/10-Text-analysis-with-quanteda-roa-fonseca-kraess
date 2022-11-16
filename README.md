@@ -18,11 +18,21 @@ To teach you the main features of Quanteda and its potential, we will analyze a 
 
 Our repository is divided as follows:
 
-📁 Exercises
+📁 assets: css files for our markdowns.
 
-📁 images
+📁 images: images for our presentation.
 
-📁 Asse
+📁 data: Rdata frames to pull for our live coding session, presentations, etc.
+
+📁 exercises: Markdowns with exercises.
+
+📁 live-coding-session: files that contains a markdown with the live coding session. 
+
+📁 quarto: our main presentation to introduce the topic in quarto presentation.
+
+
+📁 scripts: raw data file of our live code session for the persons that are interested. 
+
 
 📄
 
