@@ -4,6 +4,7 @@ subtitle: "Analyzing the TV show 'How I Met Your Mother' with quanteda"
 mainfont: SourceSansPro
 output: 
   html_document:
+    keep_md: true
     code_folding: hide
     toc: TRUE
     df_print: paged
@@ -70,7 +71,7 @@ knitr::include_graphics(h_url)
 
 <font size="2">
 
-<center>Students name: <strong>Jorge Roa, Cesar Augusto, Alexander Kraess </strong></center>
+<center>Students name: <strong>Jorge Roa, Augusto Fonseca, Alexander Kraess </strong></center>
 
 </font>
 
@@ -241,6 +242,8 @@ We will do a web scraping of our favorite TV show: “How I Met Your Mother.” 
 
 </br>
 
+-   This chunk of code shows how we can retrieve data from the internet. For our purpose, we will use [Sprigfield](springfieldspringfield.co.uk) webpage. Here, you can download the original TV scripts from multiple shows; in our case, we will download the How I Met Your Mother scripts.
+
 ```{r 02.01, eval = FALSE, class.source = "fold-show"}
 
 v_tv_show <- "how-i-met-your-mother"
@@ -276,12 +279,12 @@ directory_path <- paste("texts/how-i-met-your-mother/", v_tv_show, sep = "")
 
 ```{r 02.02.01., eval = FALSE, class.source = "fold-show"}
 
-### 02.02.01.-scrape href nodes in .season-episode-title-------------------------
+### scrape href nodes in .season-episode-title-------------------------
 
 html_url_all_seasons <- html_nodes(html_url_scrape, node_selector) %>%
   html_attr("href")
 
-### 02.02.02.-One loop for all our URL's----------------------------------------
+### One loop for all our URL's----------------------------------------
 
 for (x in html_url_all_seasons) {
   read_ur <- read_html(paste(v_url_web, x, sep="/"))
