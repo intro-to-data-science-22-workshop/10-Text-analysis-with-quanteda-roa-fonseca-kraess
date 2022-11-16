@@ -18,27 +18,29 @@ To teach you the main features of Quanteda and its potential, we will analyze a 
 
 Our repository is divided as follows:
 
-📁 assets: css files for our markdowns.
-
-📁 images: images for our presentation.
 
 📁 data: Rdata frames to pull for our live coding session, presentations, etc.
 
 📁 exercises: Markdowns with exercises.
 
+   📄 Exercise quanteda: Exercise quanteda_cleaned.Rmd
+   
+   📄 Exercise quanteda with answers: Exercise quanteda.Rmd
+
 📁 live-coding-session: files that contains a markdown with the live coding session. 
+
+   📄 Exercise quanteda with answers: How_we_met_quanteda.html
 
 📁 quarto: our main presentation to introduce the topic in quarto presentation.
 
+   📄 Quanteda_presentation_final_version.html (We will have two parts for the live coding session: a Markdown and this presentation).
 
 📁 scripts: raw data file of our live code session for the persons that are interested. 
 
+   📄 01_raw_script.R
 
-📄
+📁 texts: How I Met Your Mother TV scripts. 
 
-📄
-
-📄
 
 
 ### Main learning objectives
@@ -51,7 +53,7 @@ The goals of this session are to
 
 3.- Learn how to implement the most important analytics when having text.
 
-4.-Handle the text and give you an idea of how you can present your own research.
+4.- Handle the text and give you an idea of how you can present your own research.
 
 5.- We are going to provide reference material, presentations and even exercises so that you understand what the text analysis process is like. We want you to have fun, but also learn with clear and fun examples.
 
