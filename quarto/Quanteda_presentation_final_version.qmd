@@ -32,7 +32,6 @@ format:
       transition-speed: fast
       margin-bottom: 1px
       theme: default
-      fontcolor: white
       echo: true
 highlight-style: "dracula"
       #{style="float:right;text-align:right;"} For specific
@@ -110,7 +109,7 @@ A lot of data is in text form, many tools convert audios into text and there is 
 -   Social science:
 
     -   Analysis of political speeches.
-    -   Theory building and testing thorugh text analysis [@MACANOVIC2022102784].
+    -   Theory building and testing through text analysis.
 :::
 
 ::: {.column width="50%"}
@@ -487,15 +486,187 @@ load("data/df_spaCyr_himym.Rdata")
 
 ![](https://media3.giphy.com/media/xnNKRYdeemYi4/giphy.gif?cid=ecf05e47ueaba5lvfpep5evcnun2myllhnx26vj707in4zoe&rid=giphy.gif&ct=g){fig-align="center" height="500"}
 
+
+# How We Met Quanteda {auto-animate="true" auto-animate-easing="ease-in-out" background="radial-gradient( circle farthest-corner at 21.3% 26.5%,  rgba(47,181,227,1) 0%, rgba(155,208,237,1) 61.4% )" style="text-align: left; font-size: 1.2em;"}
+
+</br>
+
+ 📌 Objective
+
+::: columns
+::: {.column width="50%"}
+
+This workshop aims to use the incredible `quanteda` package to analyze the television series "How I Met Your Mother" and demonstrate many of the `quanteda` package’s tools. We will explore the characters, identify adjectives, render Wordclouds, network plots and even sentiment analysis. 
+
+
+:::
+
+::: {.column width="50%"}
+
+![](https://flxt.tmsimg.com/assets/p185124_b_v8_aj.jpg){fig-align="center" height="450"}
+
+:::
+:::
+
+
+# How I Met Your Mother {auto-animate="true" auto-animate-easing="ease-in-out" background="radial-gradient( circle farthest-corner at 21.3% 26.5%,  rgba(47,181,227,1) 0%, rgba(155,208,237,1) 61.4% )" style="text-align: left; font-size: 1.2em;"}
+
+<center>
+
+<iframe
+    width="740"
+    height="580"
+    src="https://www.youtube.com/embed/ZPLOsabhQSM"
+    frameborder="0"
+    allow="autoplay; encrypted-media"
+    allowfullscreen>
+</iframe>
+
+</center>
+
+# 🎸 Plot {auto-animate="true" auto-animate-easing="ease-in-out" background="radial-gradient( circle farthest-corner at 21.3% 26.5%,  rgba(47,181,227,1) 0%, rgba(155,208,237,1) 61.4% )" style="text-align: left; font-size: .8em;"}
+
+</br>
+
+```{r himym, out.width="500px", fig.align = 'center', size = 'tiny', echo=FALSE}
+h_url <- "https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/BEA544D7476F6C33E23CB73494F462BAF5F9A247B41B335F74094773F4112C03/scale?width=1200&aspectRatio=1.78&format=jpeg"
+
+knitr::include_graphics(h_url)
+```
+
+</br>
+
+
+<blockquote> Plot: "Ted has fallen in love. It all started when his best friend, Marshall, drops the bombshell that he plans to propose to longtime girlfriend Lily, a kindergarten teacher. Suddenly, Ted realizes that he had better get a move on if he hopes to find true love. Helping him in the quest is Barney, a friend with endless -- often outrageous -- opinions, a penchant for suits and a foolproof way to meet women. When Ted meets Robin, he is sure it's love at first sight, but the affair fizzles into friendship. Voice-over by Bob Saget ("Full House") tells the story through flashbacks."</blockquote>
+
+Source: [Rotten Tomatoes](https://ds3.ai/courses/textasdata.html){target="_blank"}
+
+
+# 🎸 Principal Characters {auto-animate="true" auto-animate-easing="ease-in-out" background="radial-gradient( circle farthest-corner at 21.3% 26.5%,  rgba(47,181,227,1) 0%, rgba(155,208,237,1) 61.4% )" style="text-align: left; font-size: .8em;"}
+
+</br>
+
+::: columns
+::: {.column width="20%"}
+
+<center>
+
+```{r, echo=FALSE, out.width="50%", out.height="50%", out.extra='class="myimg"'}
+knitr::include_graphics("https://upload.wikimedia.org/wikipedia/en/thumb/e/e0/Ted_Mosby.jpg/220px-Ted_Mosby.jpg")
+```
+
+Ted
+
+Actor: Josh Radnor
+
+</center>
+
+
+:::
+
+::: {.column width="20%"}
+<center>
+
+```{r, echo=FALSE, out.width="50%", out.height="50%", out.extra='class="myimg"'}
+knitr::include_graphics("https://pbs.twimg.com/media/Ck8_vkfVEAAQldJ.jpg")
+```
+
+Barney
+
+Actor: Neil 
+Patrick Harris
+
+</center>
+:::
+
+::: {.column width="20%"}
+<center>
+
+```{r, echo=FALSE, out.width="50%", out.height="50%", out.extra='class="myimg"'}
+knitr::include_graphics("https://iv1.lisimg.com/image/7068531/740full-robin-scherbatsky.jpg")
+```
+
+Robin
+
+Actor: Cobin Smulders
+
+</center>
+:::
+
+::: {.column width="20%"}
+<center>
+
+```{r, echo=FALSE, out.width="50%", out.height="50%", out.extra='class="myimg"'}
+knitr::include_graphics("https://upload.wikimedia.org/wikipedia/en/a/a6/Marshall_Eriksen.jpg")
+```
+
+Marshall
+
+Actor: Jason Segel
+
+</center>
+
+
+:::
+
+::: {.column width="20%"}
+<center>
+
+```{r, echo=FALSE, out.width="50%", out.height="50%", out.extra='class="myimg"'}
+knitr::include_graphics("https://cdn.fansshare.com/photo/alysonhannigan/lily-stills-lily-aldrin-alyson-hannigan-1247118600.jpg")
+```
+
+Lily
+
+Actor: Alyson Hannigan
+
+</center>
+:::
+:::
+
+<i class="font_7">
+
+<blockquote> "The story of five friends sitting in their favorite booth at MacLaren’s, their lives unfolding in front of each other, How I Met Your Mother is heartwarming and hilarious at the same time. Some believe that HIMYM is Ted’s story. Others think that it is Marshall and Lily’s story. And there’s a whole school of thought that it's no one else but Barney’s story. We would like to think that it’s all of their stories because there won’t be a Ted without Barney or a Lily without Marshall, and definitely no Robin without a Ted (and Barney too). That’s how crucial each of the members of this group is, playing a major role in each other’s lives, helping them grow and become what they wanted to be." </blockquote> 
+
+Source: [Collider](https://collider.com/how-i-met-your-mother-cast-and-characters-what-now/){target="_blank"}
+
+</i>
+
+
 # Packages for the analysis {auto-animate="true" auto-animate-easing="ease-in-out" background="radial-gradient( circle farthest-corner at 21.3% 26.5%,  rgba(47,181,227,1) 0%, rgba(155,208,237,1) 61.4% )" style="text-align: left; font-size: 1.2em;"}
 
 # Packages for the analysis {auto-animate="true" auto-animate-easing="ease-in-out" background="radial-gradient( circle farthest-corner at 21.3% 26.5%,  rgba(47,181,227,1) 0%, rgba(155,208,237,1) 61.4% )" style="text-align: left; font-size: .8em;"}
 
 
+::: incremental
+::: columns
+::: {.column width="50%"}
+-   ![](https://tidyverse.tidyverse.org/articles/tidyverse-logo.png){fig-align="center" height="70"} **Tidyverse**: set of pacakges that will help us to wrangle our objetcs, dataframes, plots, etc. (Amazing tool)
+
+-   ![](https://www.cssatlse.com/images/quanteda.png){fig-align="center" height="30"} **Quanteda**: set of pacakges that will help us to wrangle our objetcs, dataframes, plots, etc. (Amazing tool)
+
+-   ![](https://rvest.tidyverse.org/logo.png){fig-align="center" height="70"} **Rvest**: set of pacakges that will help us to wrangle our objetcs, dataframes, plots, etc. (Amazing tool)
+:::
+
+::: {.column width="50%"}
+-   ![](https://stringr.tidyverse.org/logo.png){fig-align="center" height="70"} **stringr**: set of pacakges that will help us to wrangle our objetcs, dataframes, plots, etc. (Amazing tool)
+
+-   ![](https://yjunechoe.github.io/posts/2020-06-25-indexing-tip-for-spacyr/preview.png){fig-align="center" height="30"} **spacyr**: set of pacakges that will help us to wrangle our objetcs, dataframes, plots, etc. (Amazing tool)
+:::
+:::
+:::
+
+
+# Packages for the analysis {auto-animate="true" auto-animate-easing="ease-in-out" background="radial-gradient( circle farthest-corner at 21.3% 26.5%,  rgba(47,181,227,1) 0%, rgba(155,208,237,1) 61.4% )" style="text-align: left; font-size: .8em;"}
+
+</br>
+
+
 <center>
 
 ```{r libraries, eval = TRUE}
-
+#| class-source:  height_chunk4
+#| classes:  height_chunk4
 
 library(readtext) #For import and Handling for Plain and Formatted Text Files.
 library(rvest) #For easily Harvest (Scrape) Web Pages.
@@ -523,30 +694,7 @@ obj_img <- image_read(path = "https://bit.ly/3twmH2Y")
 
 </center>
 
-# Packages for the analysis {auto-animate="true" auto-animate-easing="ease-in-out" background="radial-gradient( circle farthest-corner at 21.3% 26.5%,  rgba(47,181,227,1) 0%, rgba(155,208,237,1) 61.4% )" style="text-align: left; font-size: .8em;"}
 
-
-::: incremental
-::: columns
-::: {.column width="50%"}
--   ![](https://tidyverse.tidyverse.org/articles/tidyverse-logo.png){fig-align="center" height="70"} **Tidyverse**: set of pacakges that will help us to wrangle our objetcs, dataframes, plots, etc. (Amazing tool)
-
--   ![](https://www.cssatlse.com/images/quanteda.png){fig-align="center" height="30"} **Quanteda**: set of pacakges that will help us to wrangle our objetcs, dataframes, plots, etc. (Amazing tool)
-
--   ![](https://rvest.tidyverse.org/logo.png){fig-align="center" height="70"} **Rvest**: set of pacakges that will help us to wrangle our objetcs, dataframes, plots, etc. (Amazing tool)
-:::
-
-::: {.column width="50%"}
--   ![](https://stringr.tidyverse.org/logo.png){fig-align="center" height="70"} **stringr**: set of pacakges that will help us to wrangle our objetcs, dataframes, plots, etc. (Amazing tool)
-
--   ![](https://yjunechoe.github.io/posts/2020-06-25-indexing-tip-for-spacyr/preview.png){fig-align="center" height="30"} **spacyr**: set of pacakges that will help us to wrangle our objetcs, dataframes, plots, etc. (Amazing tool)
-:::
-:::
-:::
-
-# Let's start {auto-animate="true" auto-animate-easing="ease-in-out" background="radial-gradient( circle farthest-corner at 21.3% 26.5%,  rgba(47,181,227,1) 0%, rgba(155,208,237,1) 61.4% )" style="text-align: left; font-size: 1.5em;"}
-
-![](https://media3.giphy.com/media/xnNKRYdeemYi4/giphy.gif?cid=ecf05e47ueaba5lvfpep5evcnun2myllhnx26vj707in4zoe&rid=giphy.gif&ct=g){fig-align="center" height="400"}
 
 # Web scraping 🏗️ {auto-animate="true" auto-animate-easing="ease-in-out" background="radial-gradient( circle farthest-corner at 21.3% 26.5%,  rgba(47,181,227,1) 0%, rgba(155,208,237,1) 61.4% )" style="text-align: left; font-size: 1.5em;"}
 
@@ -582,7 +730,9 @@ directory_path <- paste("texts/how-i-met-your-mother/", v_tv_show, sep = "")
 
 ```
 
--   First step: we must download the TV show scripts. For that, we have multiple options, but one efficient way to do it is by applying some web scrap techniques to obtain our texts and other relevant information.
+-   We will do a web scraping of our favorite TV show: “How I Met Your Mother.” For the above, we will do web scraping to obtain the scripts of the 208 episodes that the TV show has. We will define the URLs, obtain the information to know if we can do web scraping, and name the directory where we want to save our files.
+
+
 :::
 
 ::: {.column width="50%"}
@@ -623,13 +773,24 @@ for (x in html_url_all_seasons) {
 :::
 :::
 
-# 🪡  Webscrapp TV Show tables {auto-animate="true" auto-animate-easing="ease-in-out" background="radial-gradient( circle farthest-corner at 21.3% 26.5%,  rgba(47,181,227,1) 0%, rgba(155,208,237,1) 61.4% )" style="text-align: left; font-size: .7em;"}
+
+
+
+# 🎨  Webscrapp TV Show tables {auto-animate="true" auto-animate-easing="ease-in-out" background="radial-gradient( circle farthest-corner at 21.3% 26.5%,  rgba(47,181,227,1) 0%, rgba(155,208,237,1) 61.4% )" style="text-align: left; font-size: .7em;"}
+
+</br>
+
+It's important to attach our scripts with relevant information about them. For example, episode title, number of episode, number of season, director, etc. That's why we will webscrap this information from the internet. 
+
+</br>
 
 ::: columns
 ::: {.column width="50%"}
+
+
 ```{r, eval = TRUE}
-#| class-source:  height_auto
-#| classes:  height_auto
+#| class-source:  width_chunk_668px
+#| classes:  width_chunk_668px
 
 url_himym <- "https://en.wikipedia.org/wiki/List_of_How_I_Met_Your_Mother_episodes"
 
@@ -648,13 +809,17 @@ l_tables_himym <- l_tables_himym[c(2:10)]
 
 ```
 
+</br>
+
+-   🤖 Data cleaning to wrangle html tables (Characters of the TV show)
+
+Of course, we must clean our tables to have a final dataframe with the texts and the information of every episode. 
+
 :::
 
 ::: {.column width="50%"}
 
--   Data cleaning to wrangle html tables (Characters of the TV show)
-
-
+<i class = "font_6">
 
 ```{r, eval = TRUE}
 #| class-source:  height_auto
@@ -689,15 +854,24 @@ df_characters_w <- df_characters %>%
 
 rmarkdown::paged_table(df_characters_w)
 ```
+
+</i>
+
+
 :::
 :::
 
-# Data cleaning to wrangle html tables (Information of the TV Show) {auto-animate="true" auto-animate-easing="ease-in-out" background="radial-gradient( circle farthest-corner at 21.3% 26.5%,  rgba(47,181,227,1) 0%, rgba(155,208,237,1) 61.4% )" style="text-align: left; font-size: .7em;"}
+
+# 🌪 Data cleaning to wrangle html tables (Information of the TV Show) {auto-animate="true" auto-animate-easing="ease-in-out" background="radial-gradient( circle farthest-corner at 21.3% 26.5%,  rgba(47,181,227,1) 0%, rgba(155,208,237,1) 61.4% )" style="text-align: left; font-size: .7em;"}
 
 </br>
 
+Look how with our code we cleaned the information of the TV Show and know we have it in a dataframe. 
+
+
 ::: columns
 ::: {.column width="50%"}
+
 ```{r, eval = TRUE}
 #| class-source:  height_auto
 #| classes:  height_auto
@@ -745,6 +919,7 @@ df_himym_final$US.viewers.millions. <- as.numeric(str_replace_all(df_himym_final
 
 -   🎛  Load TV scripts and merge tables
 
+This is the final and most important step of the web scrap. Here, we are merging our TV show scripts and the information of the episodes in one single dataframe. 
 
 ```{r, eval = FALSE}
 #| class-source:  height_auto
@@ -765,18 +940,26 @@ df_himym_final_doc <- full_join(as.data.frame(df_texts_himym_w), df_himym_final,
 
 df_himym_final_doc
 
-rmarkdown::paged_table(df_himym_final_doc)
 ```
 
-```{r, eval = TRUE}
+:::
+:::
+
+# 🌪 Data cleaning to wrangle html tables (Information of the TV Show) {auto-animate="true" auto-animate-easing="ease-in-out" background="radial-gradient( circle farthest-corner at 21.3% 26.5%,  rgba(47,181,227,1) 0%, rgba(155,208,237,1) 61.4% )" style="text-align: left; font-size: .7em;"}
+
+Press the arrows in the top right corner of this interactive dataframe. As you can see, we have our final dataframe with the information our our TV show, number of season, episode, etc.
+
+
+<i class = "font_6">
+
+```{r, eval = TRUE, echo=FALSE}
 #| class-source:  height_auto
 #| classes:  height_auto
 
 rmarkdown::paged_table(df_himym_final_doc)
 ```
-:::
-:::
 
+</i>
 
 # Quanteda {auto-animate="true" auto-animate-easing="ease-in-out" background="radial-gradient( circle farthest-corner at 21.3% 26.5%,  rgba(47,181,227,1) 0%, rgba(155,208,237,1) 61.4% )" style="text-align: left; font-size: 1.7em;"}
 
@@ -856,7 +1039,1423 @@ toks_himym_dm_s1
 
 # 🏆 Quanteda analysis {auto-animate="true" auto-animate-easing="ease-in-out" background="radial-gradient( circle farthest-corner at 21.3% 26.5%,  rgba(47,181,227,1) 0%, rgba(155,208,237,1) 61.4% )" style="text-align: left; font-size: 1.7em;"}
 
-# 🏆 Quanteda analysis {auto-animate="true" auto-animate-easing="ease-in-out" background="radial-gradient( circle farthest-corner at 21.3% 26.5%,  rgba(47,181,227,1) 0%, rgba(155,208,237,1) 61.4% )" style="text-align: left; font-size: .8em;"}
+# 🎯 Similarity between episodes {auto-animate="true" auto-animate-easing="ease-in-out" background="radial-gradient( circle farthest-corner at 21.3% 26.5%,  rgba(47,181,227,1) 0%, rgba(155,208,237,1) 61.4% )" style="text-align: left; font-size: 1.3em;"}
+
+# 🎯 Similarity between episodes {auto-animate="true" auto-animate-easing="ease-in-out" background="radial-gradient( circle farthest-corner at 21.3% 26.5%,  rgba(47,181,227,1) 0%, rgba(155,208,237,1) 61.4% )" style="text-align: left; font-size: .8em;"}
+
+textstat_simil() function. It's super useful because we will find the similarity between episodes for the first season. 
+
+::: columns
+::: {.column width="50%"}
+```{r, eval = TRUE}
+#| class-source:  height_auto
+#| classes:  height_auto
+
+tstat_simil <- textstat_simil(toks_himym_dm_s1) #Check similarity between episodes of the first season
+
+clust <- hclust(as.dist(tstat_simil)) #Convert our object into a cluster (For visualization purposes)
+
+dclust <- as.dendrogram(clust)  #Convert our cluster into a dendrogram (For visualization purposes)
+
+dclust <- reorder(dclust, 1:22) #Order our visualization
+
+```
+
+</br>
+
+```{r, eval = FALSE}
+#| class-source:  height_auto
+#| classes:  height_auto
+#| code-fold: true
+
+#Seetle colors
+nodePar <- list(lab.cex = 1, pch = c(NA, 19), 
+                cex.axis = 1.5,
+                cex = 2, col = "#0080ff")
+
+par(mar = c(18.1, 6, 2, 3))
+
+#Plot dendogram
+plot(dclust, nodePar = nodePar,
+     las = 1,
+     cex.axis = 2, cex.main = 2, cex.sub = 2,
+     main = "How I Met Your Mother Season 1",
+     type = "triangle",
+     ylim = c(0,1),
+     ylab = "",
+     edgePar = list(col = 4:7, lwd = 7:7),
+     panel.first = abline(h = c(seq(.10, 1, .10)), col = "grey80"))
+
+title(ylab = "Similarity between episodes (correlation %)", mgp = c(4, 1, 1), cex.lab = 2)    
+
+rect.hclust(clust, k = 5, border = "red")
+```
+
+Look how amazing the similarity it is. The similarity is higher for episodes like "Zip, Zip, Zip" and Cupcake. And, for the episodes that are less similars are "The Pineapple Incident" and "The Limo".
+
+:::
+::: {.column width="50%"}
+
+```{r similarity, fig.align = 'center', size = 'tiny', echo=FALSE, out.width="75%"}
+
+#| class-source:  height_auto
+#| classes:  height_auto
+#| code-fold: true
+
+knitr::include_graphics("images/similarity.png")
+
+```
+
+
+:::
+:::
+
+# 🪅 Distance between episodes {auto-animate="true" auto-animate-easing="ease-in-out" background="radial-gradient( circle farthest-corner at 21.3% 26.5%,  rgba(47,181,227,1) 0%, rgba(155,208,237,1) 61.4% )" style="text-align: left; font-size: 1.3em;"}
+
+# 🪅 Distance between episodes {auto-animate="true" auto-animate-easing="ease-in-out" background="radial-gradient( circle farthest-corner at 21.3% 26.5%,  rgba(47,181,227,1) 0%, rgba(155,208,237,1) 61.4% )" style="text-align: left; font-size: .8em;"}
+
+textstat_dist() function. Here distance is the opposed of similarity. More distance equals less similar. Rememebr our similarity chart? Well, is the same, but here we are obtaining distance. 
+
+::: columns
+::: {.column width="50%"}
+```{r, eval = TRUE}
+#| class-source:  height_auto
+#| classes:  height_auto
+
+tstat_dist <- textstat_dist(toks_himym_dm_s1) #Check distance between episodes of the first season
+
+clust <- hclust(as.dist(tstat_dist)) #Convert our object into a cluster (For visualization purposes)
+
+dclust_dist <- as.dendrogram(clust)  #Convert our cluster into a dendrogram (For visualization purposes)
+
+dclust_dist <- reorder(dclust, 1:22) #Order our visualization
+```
+
+</br>
+
+```{r, eval = FALSE}
+#| class-source:  height_auto
+#| classes:  height_auto
+#| code-fold: true
+
+#Seetle colors
+nodePar_2 <- list(lab.cex = 1.2, pch = c(NA, 19), 
+                  cex = 1.8, col = 11)
+
+par(mar = c(21, 6, 2, 3))
+
+#Plot dendogram
+plot(dclust_dist, nodePar = nodePar_2,
+     las = 1,
+     cex.axis = 2, cex.main = 2, cex.sub = 2,
+     main = "How I Met Your Mother Season 1",
+     type = "triangle",
+     ylim = c(0, 120),
+     ylab = "",
+     edgePar = list(col = 11:19, lwd = 7:7),
+     panel.first = abline(h = c(seq(10, 120, 10)), col = "grey80"))
+
+title(ylab = "Distance between episodes (correlation %)", mgp = c(4, 1, 1), cex.lab = 2)    
+
+rect.hclust(clust, k = 5, border = "red")
+
+title(ylab = "Similarity between episodes (correlation %)", mgp = c(4, 1, 1), cex.lab = 2)    
+
+rect.hclust(clust, k = 5, border = "red")
+```
+
+Remember the episodes "The Pineapple Incident" and "The Limo" are the less similar ones? Well, here these episodes are the ones that have more distance between them. 
+
+:::
+::: {.column width="50%"}
+
+```{r distance, fig.align = 'center', size = 'tiny', echo=FALSE, out.width="75%"}
+
+#| class-source:  height_auto
+#| classes:  height_auto
+#| code-fold: true
+
+knitr::include_graphics("images/distance.png")
+
+```
+
+
+:::
+:::
+
+# 🎎 Appearances of actors by season {auto-animate="true" auto-animate-easing="ease-in-out" background="radial-gradient( circle farthest-corner at 21.3% 26.5%,  rgba(47,181,227,1) 0%, rgba(155,208,237,1) 61.4% )" style="text-align: left; font-size: 1.3em;"}
+
+# 🎎 Appearances of actors by season {auto-animate="true" auto-animate-easing="ease-in-out" background="radial-gradient( circle farthest-corner at 21.3% 26.5%,  rgba(47,181,227,1) 0%, rgba(155,208,237,1) 61.4% )" style="text-align: left; font-size: .8em;"}
+
+Now, we want to know the characters of the TV Show. We will get the number of appearances by actor per season and episode. 
+
+::: columns
+::: {.column width="50%"}
+```{r, eval = TRUE}
+#| class-source:  height_auto
+#| classes:  height_auto
+
+
+#Remember our second step: tokenize our corpus. 
+
+toks_himym <- tokens(corp_himym, #corpus from all the episodes
+                     remove_punct = TRUE, #Remove punctuation of our texts
+                     remove_separators = TRUE,  #Remove separators of our texts
+                     remove_numbers = TRUE, #Remove numbers of our texts
+                     remove_symbols = TRUE) %>% #Remove symbols of our texts
+  tokens_remove(stopwords("english")) #Add additional words
+
+dfm_actors <- toks_himym %>% 
+  tokens_select(c("Ted", "Marshall", "Lily", "Robin", "Barney", "Mother")) %>% #We just want to analyze these characters
+  tokens_group(groups = Season) %>% #We group our tokens (scripts) by season
+  dfm() #Transform the token into a DFM object
+
+df_final_actors <-  as.data.frame(textstat_frequency(dfm_actors, groups = c(1:9))) %>% 
+                    mutate(Season = paste("Season", group),
+                           `Principal Characters` = replace(feature, is.character(feature), str_to_title(feature))) %>% 
+                    select(-feature)
+```
+
+</br>
+
+Here, we plot this frequency of actors. There is no secret that Ted is the most famous character of the show because he is the one that is telling the story to his sons. It's interesting how Barney had a "glow up" for the end of the last season. What is ironic is that the TV Show is called "How I Met Your Mother", but the times that "Mother" appears on the seasons is not that much. 
+
+:::
+::: {.column width="50%"}
+
+```{r, eval = FALSE, fig.align = 'center', size = 'tiny', out.width="75%"}
+#| class-source:  height_auto
+#| classes:  height_auto
+#| code-fold: true
+
+# Plot frequency of actors
+ggplot1 <- ggplot(df_final_actors, aes(x = group, y = frequency, group = `Principal Characters`, color = `Principal Characters`)) +
+  geom_line(size = 1.5) +
+  scale_color_manual(values = brewer.pal(n = 6, name = "Dark2")) +
+  geom_point(size = 3.2) +
+  scale_y_continuous(breaks = seq(0, 5600, by = 50), limits = c(0,560))+
+  theme_minimal(base_size = 14) +
+  labs(x = "Number of Season",
+       y = "Frequencies of appreances",
+       title = "Appearances of principal characters by Season",
+       caption="Description: This plot show the number of times that the \n principal characters appears in HIMYM per season.")+
+       theme(panel.grid.major=element_line(colour="#cfe7f3"),
+             panel.grid.minor=element_line(colour="#cfe7f3"),
+             plot.title = element_text(margin = margin(t = 10, r = 20, b = 30, l = 30)),
+             #axis.text.x=element_text(size=15),
+             #axis.text.y=element_text(size=15),
+             plot.caption=element_text(size=12, hjust=.1, color="#939393"),
+             legend.position="bottom",
+             plot.margin = margin(t = 20,  # Top margin
+                                  r = 50,  # Right margin
+                                  b = 40,  # Bottom margin
+                                  l = 10), # Left margin
+             text=element_text()) + 
+#geom_segment(aes(x = 8.5, y = 75, xend = 8.8, yend = 70),
+#             arrow = arrow(length = unit(0.1, "cm")))+
+  guides(colour = guide_legend(ncol = 6))
+
+ggdraw(ggplot1) + draw_image(obj_img, x = .97, y = .97, 
+                               hjust = 1.1, vjust = .7, 
+                               width = 0.11, height = 0.1)
+
+```
+
+```{r, fig.align = 'center', size = 'tiny', echo=FALSE, fig.height=7}
+
+#| class-source:  height_auto
+#| classes:  height_auto
+
+# Plot frequency of actors
+ggplot1 <- ggplot(df_final_actors, aes(x = group, y = frequency, group = `Principal Characters`, color = `Principal Characters`)) +
+  geom_line(size = 1.5) +
+  scale_color_manual(values = brewer.pal(n = 6, name = "Dark2")) +
+  geom_point(size = 3.2) +
+  scale_y_continuous(breaks = seq(0, 5600, by = 50), limits = c(0,560))+
+  theme_minimal(base_size = 14) +
+  labs(x = "Number of Season",
+       y = "Frequencies of appreances",
+       title = "Appearances of principal characters by Season",
+       caption="Description: This plot show the number of times that the \n principal characters appears in HIMYM per season.")+
+       theme(panel.grid.major=element_line(colour="#cfe7f3"),
+             panel.grid.minor=element_line(colour="#cfe7f3"),
+             plot.title = element_text(margin = margin(t = 10, r = 20, b = 30, l = 30)),
+             #axis.text.x=element_text(size=15),
+             #axis.text.y=element_text(size=15),
+             plot.caption=element_text(size=12, hjust=.1, color="#939393"),
+             legend.position="bottom",
+             plot.margin = margin(t = 20,  # Top margin
+                                  r = 50,  # Right margin
+                                  b = 40,  # Bottom margin
+                                  l = 10), # Left margin
+             text=element_text()) + 
+#geom_segment(aes(x = 8.5, y = 75, xend = 8.8, yend = 70),
+#             arrow = arrow(length = unit(0.1, "cm")))+
+  guides(colour = guide_legend(ncol = 6))
+
+ggdraw(ggplot1) + draw_image(obj_img, x = .97, y = .97, 
+                               hjust = 1.1, vjust = .7, 
+                               width = 0.11, height = 0.1)
+
+```
+
+:::
+:::
+
+
+#  🌊 Wordcloud of PRINCIPAL characters that appears in HIMYM {auto-animate="true" auto-animate-easing="ease-in-out" background="radial-gradient( circle farthest-corner at 21.3% 26.5%,  rgba(47,181,227,1) 0%, rgba(155,208,237,1) 61.4% )" style="text-align: left; font-size: 1.1em;"}
+
+#  🌊 Wordcloud of PRINCIPAL characters that appears in HIMYM {auto-animate="true" auto-animate-easing="ease-in-out" background="radial-gradient( circle farthest-corner at 21.3% 26.5%,  rgba(47,181,227,1) 0%, rgba(155,208,237,1) 61.4% )" style="text-align: left; font-size: .7em;"}
+
+</br>
+
+Wordcloud plots are super useful to analyze how many words and the repetition of them appears in a text. Knowing this, we want to do some analysis using wordclouds.
+
+</br>
+
+::: columns
+::: {.column width="50%"}
+```{r, eval = TRUE}
+#| class-source:  height_auto
+#| classes:  height_auto
+
+#Remember our second step: tokenize our corpus. 
+
+toks_himym_characters <- tokens(corp_himym, #corpus from all the episodes from all season
+                                remove_punct = TRUE, #Remove punctuation of our texts
+                                remove_separators = TRUE, #Remove separators of our texts
+                                remove_numbers = TRUE, #Remove numbers of our texts
+                                remove_symbols = TRUE) %>% #Remove symbols of our texts
+  tokens_keep(c(unique(df_characters_w$name))) #This function allow us to keep just the tokens that we want. 
+
+#In this case, we just want the characters.
+```
+
+</br>
+
+```{r, eval = TRUE}
+#| class-source:  height_auto
+#| classes:  height_auto
+
+#Remember our third step: DFM object
+
+dfm_general_characters <- toks_himym_characters %>%
+                          dfm()
+```
+
+</br>
+
+And here we have it. Our first wordcloud plot. Looks amazing! Remember that you can change the color of it, the sizes and other relevant things. 
+
+:::
+::: {.column width="50%"}
+
+```{r, eval = FALSE}
+#| class-source:  height_auto
+#| classes:  height_auto
+#| code-fold: true
+
+textplot_wordcloud(dfm_general_characters, 
+                   rotation = 0.25,
+                   min_size = 1.4, max_size = 8,
+                   min_count = 1, #Minimum frequency
+                   color = brewer.pal(11, "RdBu"))
+#RColorBrewer::display.brewer.all()
+```
+
+```{r, fig.align = 'center', size = 'tiny', echo=FALSE, out.width="60%"}
+
+#| class-source:  height_auto
+#| classes:  height_auto
+#| code-fold: true
+
+knitr::include_graphics("images/wordcloud_princ.png")
+
+```
+
+
+:::
+:::
+
+
+# ☄ Wordcloud of SECONDARY characters that appears in HIMYM {auto-animate="true" auto-animate-easing="ease-in-out" background="radial-gradient( circle farthest-corner at 21.3% 26.5%,  rgba(47,181,227,1) 0%, rgba(155,208,237,1) 61.4% )" style="text-align: left; font-size: 1.1em;"}
+
+#  ☄ Wordcloud of SECONDARY characters that appears in HIMYM {auto-animate="true" auto-animate-easing="ease-in-out" background="radial-gradient( circle farthest-corner at 21.3% 26.5%,  rgba(47,181,227,1) 0%, rgba(155,208,237,1) 61.4% )" style="text-align: left; font-size: .7em;"}
+
+</br>
+
+Now, let's do the same, but just with our secondary characters.
+
+</br>
+
+::: columns
+::: {.column width="50%"}
+```{r, eval = TRUE}
+#| class-source:  height_auto
+#| classes:  height_auto
+
+#Remember our second step: tokenize our corpus. 
+
+toks_himym_sec_characters <- tokens(corp_himym, #corpus from all the episodes from all season
+                                    remove_punct = TRUE, #Remove punctuation of our texts
+                                    remove_separators = TRUE, #Remove separators of our texts
+                                    remove_numbers = TRUE, #Remove numbers of our texts
+                                    remove_symbols = TRUE) %>% #Remove symbols of our texts
+  tokens_keep(c(unique(df_characters_w$name))) %>% #We want to keep all the characters
+  tokens_remove(c("Ted", "Barney", "Lily", "Robin", "Marshall")) #But we remove the principal characters
+```
+
+</br>
+
+```{r, eval = TRUE}
+#| class-source:  height_auto
+#| classes:  height_auto
+
+#Remember our third step: DFM object
+
+dfm_general_sec_characters <- toks_himym_sec_characters %>%
+                              dfm()
+```
+
+</br>
+
+For example, here, we specified another type of palette. The plotted names are just secondary characters because we removed the principal. Zoey, Stella, and Victoria are Ted’s ex-girlfriends. 
+
+:::
+::: {.column width="50%"}
+
+```{r, eval = FALSE}
+#| class-source:  height_auto
+#| classes:  height_auto
+#| code-fold: true
+
+textplot_wordcloud(dfm_general_sec_characters, 
+                   random_order = FALSE, 
+                   rotation = 0.25,
+                   min_size = 1, max_size =5,
+                   labelsize = 1.5,
+                   min_count = 1, #Minimum frequency
+                   color = RColorBrewer::brewer.pal(8, "Spectral"))
+
+```
+
+```{r, fig.align = 'center', size = 'tiny', echo=FALSE, out.width="60%"}
+
+#| class-source:  height_auto
+#| classes:  height_auto
+#| code-fold: true
+
+knitr::include_graphics("images/wordcloud_sec.png")
+
+```
+
+
+:::
+:::
+
+
+# 🌶🔥 spaCy and spaCyr {auto-animate="true" auto-animate-easing="ease-in-out" background="radial-gradient( circle farthest-corner at 21.3% 26.5%,  rgba(47,181,227,1) 0%, rgba(155,208,237,1) 61.4% )" style="text-align: left; font-size: 1.1em;"}
+
+# 🌶🔥 spaCy and spaCyr {auto-animate="true" auto-animate-easing="ease-in-out" background="radial-gradient( circle farthest-corner at 21.3% 26.5%,  rgba(47,181,227,1) 0%, rgba(155,208,237,1) 61.4% )" style="text-align: left; font-size: .7em;"}
+
+![](https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/SpaCy_logo.svg/1200px-SpaCy_logo.svg.png){fig-align="center" height="70"}
+
+
+
+::: columns
+::: {.column width="50%"}
+
+
+spaCyr provides a convenient R wrapper around the Python spaCy package. It offers easy access to the following functionality of spaCy. This package is amazing because here what spacyr is doing is clasifying automatically our words into nouns, adjectives, verbs, dates and much more. Of course, it is not 100% accurate, but it is an amazing tool to do some analysis!
+
+```{r, eval = FALSE, }
+#| class-source:  height_auto
+#| classes:  height_auto
+
+
+#Be patient because it takes around 5-10 minutes to do the installation. Also, please follow the steps marked on your monitor when you are installing the packages. 
+
+library(spacyr)
+
+spacy_install()
+
+spacy_initialize(model = "en_core_web_sm")
+
+sp_parse_doc <- spacy_parse(df_himym_final_doc, tag=TRUE)
+
+```
+
+
+:::
+::: {.column width="50%"}
+
+This is our output. Look how the package separate our words automatically and also classified them as nouns, verbs, names, etc. It's amazing!! Of course, the classification is not 100% accurate, but it gives us a good idea for know different things about our texts. We put a head of 10 because the actual dataframe has 841,253 observations (words)
+
+
+<i class = "font_5">
+
+```{r, eval = TRUE, echo=FALSE}
+#| class-source:  height_auto
+#| classes:  height_auto
+
+sp_parse_var <- full_join(sp_parse_doc, df_himym_final_doc, by = c("doc_id"))
+
+rmarkdown::paged_table(head(sp_parse_var))
+```
+
+
+</i>
+
+:::
+:::
+
+
+
+# ⛄ Get wordcloud using an spaCyr output {auto-animate="true" auto-animate-easing="ease-in-out" background="radial-gradient( circle farthest-corner at 21.3% 26.5%,  rgba(47,181,227,1) 0%, rgba(155,208,237,1) 61.4% )" style="text-align: left; font-size: 1.1em;"}
+
+#  ⛄ Get wordcloud using an spaCyr output {auto-animate="true" auto-animate-easing="ease-in-out" background="radial-gradient( circle farthest-corner at 21.3% 26.5%,  rgba(47,181,227,1) 0%, rgba(155,208,237,1) 61.4% )" style="text-align: left; font-size: .7em;"}
+
+::: columns
+::: {.column width="50%"}
+
+We will get a wordcloud using the spacYr output. We will divide the output into adjectives and other features. Please, check the package, you will not regret it. 
+
+```{r, eval = TRUE}
+#| class-source:  height_auto
+#| classes:  height_auto
+#| code-fold: true
+
+#In this case, we will just look the proper names and adjectives.
+
+sp_parse_var_PROPN <- sp_parse_var %>% filter(pos=="PROPN" & stringr::str_starts(entity, "PERSON_B"))
+
+sp_parse_var_ADJ <- sp_parse_var %>% filter(pos=="ADJ")
+
+```
+
+```{r, eval = TRUE}
+#| class-source:  height_auto
+#| classes:  height_auto
+
+#Remember our second step: tokenize our corpus. 
+
+toks_himym_ADJ <- tokens(corp_himym, #corpus from all the episodes from all season
+                         remove_punct = TRUE, #Remove punctuation of our texts
+                         remove_separators = TRUE,  #Remove separators of our texts
+                         remove_numbers = TRUE, #Remove numbers of our texts
+                         remove_symbols = TRUE) %>%  #Remove symbols of our texts
+  tokens_keep(c(unique(sp_parse_var_ADJ$lemma))) %>% #We want to keep all the adjective
+  tokens_remove(c(stopwords("english"), "oh", "yeah", "okay", "like", 
+                  "get", "got", "can", "one", "hey", "go",
+                  "Ted", "Marshall", "Lily", "Robin", "Barney", "just", 
+                  "know", "well", "right", "even", "see", 
+                  "sure", "back", "first", "said", "maybe", "wedding", 
+                  "whole", "wait")) #But we remove stopwords and other words that the package didn't classify it correctly. 
+
+```
+
+```{r, eval = TRUE}
+#| class-source:  height_auto
+#| classes:  height_auto
+
+#Remember our third step: DFM object
+
+df_general_ADJ <- toks_himym_ADJ %>%
+  tokens_group(groups = Season_w) %>% #group by season
+  dfm() %>% dfm_subset(Season < 9)
+
+```
+
+Look how amazing are the adjectives distributed into the 8 seasons. Unfortunately the function only allows us 8 groups. Every color are the adjectives available in the different seasons.  
+
+:::
+::: {.column width="50%"}
+
+```{r, eval = FALSE}
+#| class-source:  height_auto
+#| classes:  height_auto
+#| code-fold: true
+
+textplot_wordcloud(df_general_ADJ, 
+                   random_order = FALSE, 
+                   rotation = 0.25,
+                   comparison = TRUE,
+                   labelsize = 1.5, 
+                   min_count = 1, #Minimum frequency
+                   color = ggsci::pal_lancet(palette = "lanonc"))
+
+```
+
+```{r, fig.align = 'center', size = 'tiny', echo=FALSE, out.width="72%"}
+
+#| class-source:  height_auto
+#| classes:  height_auto
+#| code-fold: true
+
+knitr::include_graphics("images/wordcloud_adj.png")
+
+```
+
+:::
+:::
+
+
+
+# 🎧 Get frequency of adjectives {auto-animate="true" auto-animate-easing="ease-in-out" background="radial-gradient( circle farthest-corner at 21.3% 26.5%,  rgba(47,181,227,1) 0%, rgba(155,208,237,1) 61.4% )" style="text-align: left; font-size: 1.3em;"}
+
+# 🎧 Get frequency of adjectives {auto-animate="true" auto-animate-easing="ease-in-out" background="radial-gradient( circle farthest-corner at 21.3% 26.5%,  rgba(47,181,227,1) 0%, rgba(155,208,237,1) 61.4% )" style="text-align: left; font-size: .8em;"}
+
+We will get a frequency of adjectives using the spacYr output. Again, we can do amazing things in terms of analysis. 
+
+::: columns
+::: {.column width="50%"}
+```{r, eval = TRUE}
+#| class-source:  height_auto
+#| classes:  height_auto
+
+
+#Remember our second step: tokenize our corpus. 
+
+freq_gen_dfm <- toks_himym_ADJ %>%
+  dfm()
+
+#Generate dataframe
+df_freq_gen_dfm <-  as.data.frame(textstat_frequency(freq_gen_dfm, # Our DFM object
+                                                     n = 10, #Number of observations displayed
+                                                     groups = Season)) #Grouped by season
+                                  
+df_freq_gen_dfm_match <- df_freq_gen_dfm %>% mutate(total = 1) %>% 
+                                  group_by(feature) %>% 
+                                  summarise(total = sum(total)) %>% 
+                                  filter(total== 9)
+
+df_freq_gen_dfm_final <- right_join(df_freq_gen_dfm, df_freq_gen_dfm_match,
+                                   by = "feature") %>% rename(Word = feature) %>% 
+                                   mutate(Word = str_to_title(Word))
+
+```
+
+</br>
+
+Look the frequency of adjectives. It's incredible how the word sorry appears and tends to be the one that our beautiful characters keep using. Maybe they did awful things? You need to see the TV Show and decide by yourself. 
+
+
+:::
+::: {.column width="50%"}
+
+```{r, eval = TRUE, fig.align = 'center', size = 'tiny', fig.height=7}
+#| class-source:  height_auto
+#| classes:  height_auto
+#| code-fold: true
+
+ggplot2 <- ggplot(df_freq_gen_dfm_final, aes(x = group, y = frequency, group = Word, color = Word)) +
+  geom_line(size = 1.5, show.legend = TRUE) +
+  scale_color_manual(values = rev(brewer.pal(n = 7, name = "Dark2"))) +
+  geom_point(size = 3.2) +
+  theme_minimal(base_size = 14) +
+  labs(x = "Number of Season",
+       y = "Frequencies of words",
+       title = "Frequency of adjectives",
+       caption="Description: This plot shows the top adjectives that appears in every season of HIMYM")+
+  theme(panel.grid.major=element_line(colour="#cfe7f3"),
+        panel.grid.minor=element_line(colour="#cfe7f3"),
+        plot.title = element_text(margin = margin(t = 10, r = 20, b = 30, l = 30)),
+        #axis.text.x=element_text(size=15),
+        #axis.text.y=element_text(size=15),
+        plot.caption=element_text(size=12, hjust=.1, color="#939393"),
+        legend.position="bottom",
+        plot.margin = margin(t = 20,  # Top margin
+                             r = 50,  # Right margin
+                             b = 40,  # Bottom margin
+                             l = 10), # Left margin
+        text=element_text()) + 
+  #geom_segment(aes(x = 8.5, y = 75, xend = 8.8, yend = 70),
+  #             arrow = arrow(length = unit(0.1, "cm")))+
+  guides(colour = guide_legend(ncol = 4)) +
+  gghighlight(max(frequency) > 140,
+              keep_scales = TRUE,
+              unhighlighted_params = list(colour = NULL, alpha = 0.2))
+  
+
+ggdraw(ggplot2) + draw_image(obj_img, x = .97, y = .97, 
+                             hjust = 1.1, vjust = .7, 
+                             width = 0.11, height = 0.1)
+
+```
+
+
+:::
+:::
+
+
+# 🎷 Network plot of all the characters {auto-animate="true" auto-animate-easing="ease-in-out" background="radial-gradient( circle farthest-corner at 21.3% 26.5%,  rgba(47,181,227,1) 0%, rgba(155,208,237,1) 61.4% )" style="text-align: left; font-size: 1.3em;"}
+
+# 🎷 Network plot of all the characters {auto-animate="true" auto-animate-easing="ease-in-out" background="radial-gradient( circle farthest-corner at 21.3% 26.5%,  rgba(47,181,227,1) 0%, rgba(155,208,237,1) 61.4% )" style="text-align: left; font-size: .8em;"}
+
+
+We will get a frequency of adjectives using the spacYr output. We repeat, we can do amazing things in terms of analysis. 
+
+::: columns
+::: {.column width="50%"}
+```{r, eval = TRUE}
+#| class-source:  height_auto
+#| classes:  height_auto
+
+#Remember our second step: tokenize our corpus. 
+
+token_characters_himym <- tokens(corp_himym, #corpus from all the episodes from all season
+                                 remove_punct = TRUE, #Remove punctuation of our texts
+                                 remove_separators = TRUE, #Remove separators of our texts
+                                 remove_numbers = TRUE, #Remove numbers of our texts
+                                 remove_symbols = TRUE) %>%  #Remove symbols of our texts
+  tokens_keep(c(unique(df_characters_w$name))) %>% #We want to keep all the characters
+  #Remember the characters that we web scraped before? Here we are suing that vector to filter characters!
+  tokens_tolower() #We want lower cases in our tokens
+
+fcm_characters_himym <- token_characters_himym %>%
+                        fcm(context = "window", window = 5, tri = FALSE)
+
+
+```
+
+</br>
+
+As we expected, the network is around the principal characters, but also we can appreciate how the characters are related to each other. Here, we include every single person that appears on the show. In visualization terms, it could be a mess because we see a lot of lines. Let’s filter this FCM object again to analyze the 30 principal characters according to the frequency. 
+
+
+:::
+::: {.column width="50%"}
+
+```{r, eval = TRUE, fig.align = 'center', size = 'tiny', fig.height=7}
+#| class-source:  height_auto
+#| classes:  height_auto
+#| code-fold: true
+
+#Vector with all the characters
+v_top_characters <- stringr::str_to_sentence(names(topfeatures(fcm_characters_himym, 70)))
+
+set.seed(100)
+
+textplot_network(fcm_select(fcm_characters_himym, v_top_characters),
+                 edge_color = "#008eed", 
+                 edge_size = 2, 
+                 vertex_labelcolor = "#006fba", 
+                 omit_isolated = TRUE,
+                 min_freq = .1)
+
+```
+
+:::
+:::
+
+# 🎷 Network plot of the principal 30 characters {auto-animate="true" auto-animate-easing="ease-in-out" background="radial-gradient( circle farthest-corner at 21.3% 26.5%,  rgba(47,181,227,1) 0%, rgba(155,208,237,1) 61.4% )" style="text-align: left; font-size: .8em;"}
+
+</br>
+
+::: columns
+::: {.column width="50%"}
+
+</br>
+</br>
+</br>
+
+
+As we said before, if we want to be more specific, we can reduce our network plot to 30 characters. We will follow the same steps s back but filter to have the top features of the first 30 characters.  
+
+:::
+::: {.column width="50%"}
+
+```{r 13_net, eval = TRUE, fig.height=7}
+#| class-source:  height_auto
+#| classes:  height_auto
+#| code-fold: true
+
+
+#Vector with 30 characters
+v_top_characters_2 <- stringr::str_to_sentence(names(topfeatures(fcm_characters_himym, 30)))
+
+textplot_network(fcm_select(fcm_characters_himym, v_top_characters_2),
+                 edge_color = "#008eed", 
+                 edge_size = 5, 
+                 vertex_labelcolor = "#006fba",
+                 omit_isolated = TRUE,
+                 min_freq = .1)
+
+```
+
+:::
+:::
+
+# 🎸 Network plot of Ted {auto-animate="true" auto-animate-easing="ease-in-out" background="radial-gradient( circle farthest-corner at 21.3% 26.5%,  rgba(47,181,227,1) 0%, rgba(155,208,237,1) 61.4% )" style="text-align: left; font-size: .8em;"}
+
+
+
+::: columns
+::: {.column width="50%"}
+
+If we want to be even more specific, we can reduce our network plot and weight it with just one character. In this case, Ted.  We are “weighting” this network plot because we want to see the density of how many times that character is related to Ted. We can do this with the previous plots to check how the network changes. 
+
+
+```{r, eval = TRUE}
+#| class-source:  height_auto
+#| classes:  height_auto
+
+fcm_characters_himym_ted <- token_characters_himym %>%
+  tokens_remove(c("marshall", "lily", "barney", "robin")) %>% #Here we just want ted, that why we remove the other principal characters
+  fcm(context = "window", window = 5, tri = FALSE)
+
+#Vector with 30 characters
+v_top_characters_3 <- stringr::str_to_sentence(names(topfeatures(fcm_characters_himym_ted, 30)))
+
+#Create a FCM matrix with our characters
+vertex_size_f <- fcm_select(fcm_characters_himym_ted, pattern = v_top_characters_3)
+
+#Create a proportion 
+v_proportion <- rowSums(vertex_size_f)/min(rowSums(vertex_size_f))
+
+#Vector of Ted
+x_p <- c("ted")
+
+#Replace that proportion in our vector
+final_v <- replace(v_proportion, names(v_proportion) %in% x_p, 
+                   v_proportion[names(v_proportion) %in% x_p]/15)
+
+
+```
+
+:::
+::: {.column width="50%"}
+
+```{r, eval = TRUE, fig.align = 'center', size = 'tiny', fig.height=7}
+#| class-source:  height_auto
+#| classes:  height_auto
+#| code-fold: true
+
+textplot_network(fcm_select(fcm_characters_himym_ted, v_top_characters_3),
+                 edge_color = "#008eed", 
+                 edge_size = 5, 
+                 vertex_labelcolor = "#006fba",
+                 omit_isolated = TRUE,
+                 vertex_labelsize = final_v,
+                 min_freq = .1)
+```
+
+:::
+:::
+
+
+
+# 🎹  Text stat collocation {auto-animate="true" auto-animate-easing="ease-in-out" background="radial-gradient( circle farthest-corner at 21.3% 26.5%,  rgba(47,181,227,1) 0%, rgba(155,208,237,1) 61.4% )" style="text-align: left; font-size: 1.3em;"}
+
+# 🎹  Text stat collocation {auto-animate="true" auto-animate-easing="ease-in-out" background="radial-gradient( circle farthest-corner at 21.3% 26.5%,  rgba(47,181,227,1) 0%, rgba(155,208,237,1) 61.4% )" style="text-align: left; font-size: .8em;"}
+
+Identify and score multi-word expressions, or adjacent fixed-length collocations, from text using textstat_collocations(). We want to see which phrases are the more used ones in the context of the first season. This is a simple step to understanding how vital some compound phrases can be. 
+
+::: columns
+::: {.column width="50%"}
+```{r, eval = TRUE}
+#| class-source:  height_auto
+#| classes:  height_auto
+
+
+#Remember our second step: tokenize our corpus. 
+
+freq_gen_dfm <- toks_himym_ADJ %>%
+  dfm()
+
+
+#Remember our second step: tokenize our corpus. 
+
+toks_himym_s1 <- tokens(corp_himym_s1_simil, #Define our corpus for the first season
+                        padding = TRUE) %>% #Leave an empty string where the removed tokens previously existed
+  tokens_remove(stopwords("english")) #Remove stopwords of our token
+
+himym_s1_collocations <-textstat_collocations(toks_himym_s1, #Our token object
+                                              tolower = F) #Keep capital letters
+
+
+df_himym_s1_coll <- data.frame(himym_s1_collocations) %>% 
+                        rename(`Total of collocations` = count)
+
+```
+
+</br>
+
+Good! look what collocations are like right now, get married and party number are the most used ones in the first season. The Lambda and Z statistics are metrics used to plot the different allocations. Every dot in this graph represents one compound phrase. The size of each dot means how many times the characters said that phrase. 
+
+
+
+:::
+::: {.column width="50%"}
+
+```{r, eval = TRUE, fig.align = 'center', size = 'tiny', fig.height=6.8}
+#| class-source:  height_auto
+#| classes:  height_auto
+#| code-fold: true
+
+ggplot3 <- ggplot(df_himym_s1_coll, aes(x = z, y = lambda, label = collocation)) +
+  geom_point(alpha = 0.2, aes(size = `Total of collocations`), color = "#00578a")+
+  geom_point(data = df_himym_s1_coll %>% filter(z > 15), 
+             aes(x = z, y = lambda, size = `Total of collocations`),
+             color = '#00578a') + 
+  geom_text_repel(data = df_himym_s1_coll %>% filter(z > 15), #Function from ggrepel package. Show scatterplots with text.
+                  aes(label = collocation, size = count), size = 3,
+                  box.padding = unit(0.35, "lines"),
+                  point.padding = unit(0.3, "lines")) + 
+  scale_y_continuous(breaks = seq(0, 16, by = 1), limits = c(0,16))+
+  theme_minimal(base_size = 14) +
+  labs(x = "Z statistic",
+       y = "Lambda",
+       title = "Allocations of words in the First Season",
+       caption = "Description: This plot identifies and scores multi-word expressions of the 1st season")+
+  theme(panel.grid.major = element_line(colour = "#cfe7f3"),
+        panel.grid.minor = element_line(colour = "#cfe7f3"),
+        plot.title = element_text(margin = margin(t = 10, r = 20, b = 30, l = 30)),
+        #axis.text.x=element_text(size=15),
+        #axis.text.y=element_text(size=15),
+        plot.caption = element_text(size=12, hjust=.1, color="#939393"),
+        legend.position="bottom",
+        plot.margin = margin(t = 20,  # Top margin
+                             r = 50,  # Right margin
+                             b = 10,  # Bottom margin
+                             l = 10))
+
+ggdraw(ggplot3) + draw_image(obj_img, x = .97, y = .97, 
+                             hjust = 1.1, vjust = .7, 
+                             width = 0.11, height = 0.1)
+
+```
+
+
+:::
+:::
+
+
+
+# 🎻 Locate keywords-in-context {auto-animate="true" auto-animate-easing="ease-in-out" background="radial-gradient( circle farthest-corner at 21.3% 26.5%,  rgba(47,181,227,1) 0%, rgba(155,208,237,1) 61.4% )" style="text-align: left; font-size: 1.3em;"}
+
+# 🎻 Locate keywords-in-context {auto-animate="true" auto-animate-easing="ease-in-out" background="radial-gradient( circle farthest-corner at 21.3% 26.5%,  rgba(47,181,227,1) 0%, rgba(155,208,237,1) 61.4% )" style="text-align: left; font-size: .8em;"}
+
+</br>
+
+::: columns
+::: {.column width="50%"}
+
+What about now to look the most iconics phrases in HIMYM. It's going to be...wait for it...legendary. We can do that with locate keywords in context.
+
+```{r, eval = TRUE}
+#| class-source:  height_auto
+#| classes:  height_auto
+
+#Set dataframe to merge with other information--------------------------
+
+df_title_s_chp <- df_himym_final_doc %>% 
+                  select(Title, Season, Chapter, No.overall, 
+                         Season_w, US.viewers.millions.)
+
+#First step: Define a corpus --------------------------------------
+
+corp_himym <- corpus(df_himym_final_doc)  # build a new corpus from the texts
+
+docnames(corp_himym) <- df_himym_final_doc$Title #Rename docnames with Title of the episode
+
+corp_himym_s5 <- corpus_subset(corp_himym, #our corpus
+                               Season == 5) #Filter by season
+```
+
+```{r, eval = TRUE}
+#| class-source:  height_auto
+#| classes:  height_auto
+
+
+toks_himym_s5 <- tokens(corp_himym_s5, #Corpus of season 5
+                        padding = TRUE)
+
+kw_himym_s5_love <- kwic(toks_himym_s5, #token object.
+                         pattern = "love*", #pattern that we want to look for.
+                         window = 10) #how many words you want before and after your pattern.
+
+```
+
+:::
+::: {.column width="50%"}
+
+
+<i class = "font_5">
+
+```{r, eval = TRUE}
+#| class-source:  height_auto
+#| classes:  height_auto
+#| code-fold: true
+
+df_kw_himym_s5_love <- as.data.frame(kw_himym_s5_love)  %>% 
+  rename(Title = docname,`Pre Sentence` = pre, `Post Sentence` = post)%>% 
+  rename_with(str_to_title, .cols = everything()) %>%  left_join(df_title_s_chp, 
+                                                                 by ="Title") %>% 
+  relocate(Title, Season, Chapter)
+
+rmarkdown::paged_table(df_kw_himym_s5_love)
+
+```
+
+</i>
+
+</br>
+
+That's amazing: it's seems that the word love appears 150 times just in the fifth season. 
+:::
+:::
+
+# 🎻 Locate keywords-in-context {auto-animate="true" auto-animate-easing="ease-in-out" background="radial-gradient( circle farthest-corner at 21.3% 26.5%,  rgba(47,181,227,1) 0%, rgba(155,208,237,1) 61.4% )" style="text-align: left; font-size: .8em;"}
+
+We can do this same process to obtain more dataframes. Now, let's do another example with the word: legendary. We will search this word but for all seasons. Also, we can even do phrases like: Wait for it. But don't worry, you don't need to wait us. We are here. 
+
+::: columns
+::: {.column width="50%"}
+
+Word: legendary
+
+```{r, eval = TRUE}
+#| class-source:  height_auto
+#| classes:  height_auto
+
+kw_himym_legendary <- kwic(toks_himym, #token object.
+                           pattern = "legendary*",  #pattern that we want to look for.
+                           window = 10) #how many words you want before and after your pattern.
+
+```
+
+<i class = "font_5">
+
+```{r, eval = TRUE}
+#| class-source:  height_auto
+#| classes:  height_auto
+#| code-fold: true
+
+df_kw_himym_legendary <- as.data.frame(kw_himym_legendary)  %>% 
+  rename(Title = docname,`Pre Sentence` = pre, `Post Sentence` = post)%>% 
+  rename_with(str_to_title, .cols = everything()) %>%  left_join(df_title_s_chp, 
+                                                                 by = "Title") %>% 
+  relocate(Title, Season, Chapter)
+
+rmarkdown::paged_table(df_kw_himym_legendary)
+
+```
+
+</i>
+
+:::
+::: {.column width="50%"}
+
+Phrase: Wait for it
+
+```{r, eval = TRUE}
+#| class-source:  height_auto
+#| classes:  height_auto
+
+toks_himym <- tokens(corp_himym,  #Define our corpus for all seasons
+                     padding = TRUE) #
+
+kw_himym_wait_for <- kwic(toks_himym, #token object.
+                          pattern = phrase("wait for it"),  #Here we can specify even a phrase
+                          window = 10) #how many words you want before and after your pattern.
+
+```
+
+<i class = "font_5">
+
+```{r, eval = TRUE}
+#| class-source:  height_auto
+#| classes:  height_auto
+#| code-fold: true
+
+df_kw_himym_wait_for <- as.data.frame(kw_himym_wait_for)  %>% 
+  rename(Title = docname,`Pre Sentence` = pre, `Post Sentence` = post)%>% 
+  rename_with(str_to_title, .cols = everything()) %>%  left_join(df_title_s_chp, 
+                                                                 by = "Title") %>% 
+  relocate(Title, Season, Chapter)
+
+rmarkdown::paged_table(df_kw_himym_wait_for)
+
+```
+
+</i>
+
+</br>
+
+:::
+:::
+
+
+# 🔎 Sentiment analyis {auto-animate="true" auto-animate-easing="ease-in-out" background="radial-gradient( circle farthest-corner at 21.3% 26.5%,  rgba(47,181,227,1) 0%, rgba(155,208,237,1) 61.4% )" style="text-align: left; font-size: 1.3em;"}
+
+# 🔎 Sentiment analyis {auto-animate="true" auto-animate-easing="ease-in-out" background="radial-gradient( circle farthest-corner at 21.3% 26.5%,  rgba(47,181,227,1) 0%, rgba(155,208,237,1) 61.4% )" style="text-align: left; font-size: .7em;"}
+
+</br>
+
+EXTRA: just because we were having a lot of fun with this package. We are going to do a quick sentiment analysis.
+
+::: columns
+::: {.column width="50%"}
+
+
+```{r, eval = TRUE}
+#| class-source:  height_auto
+#| classes:  height_auto
+
+toks_himym <- tokens(corp_himym, #Our corpus object
+                     remove_punct = TRUE, #Remove punctuation in our texts
+                     remove_separators = TRUE, #Remove separators in our texts
+                     remove_numbers = TRUE, #Remove numbers in our texts
+                     remove_symbols = TRUE) %>% #Remove symbols in our texts
+  tokens_remove(stopwords("english"))#Add additional words
+
+```
+
+</br>
+
+We will use the get_sentiments functions from the `tidytext` package to get positive and negative words. We have four sources. We are going to use bing, but you can choose the one that you like the most. What we are obtaning is just string vectors with negative and positive words. 
+
+
+```{r, eval = TRUE}
+#| class-source:  height_auto
+#| classes:  height_auto
+
+df_positive_words <- get_sentiments("bing") %>% #We have four options: "bing", "afinn", "loughran", "nrc" 
+  filter(sentiment == "positive")
+
+df_negative_words <- get_sentiments("bing") %>%
+  filter(sentiment == "negative")
+
+```
+
+
+:::
+::: {.column width="50%"}
+
+We must define a dictionary to put it into a dictionary and pass it thorugh a dfm object. We know that you are an expert on that now. 
+
+```{r, eval = TRUE}
+#| class-source:  height_auto
+#| classes:  height_auto
+
+l_sentiment_dictionary <- dictionary(list(positive = df_positive_words, 
+                                        negative = df_negative_words))
+
+
+```
+
+💡 Warning: this functions takes 30 minutes: be patience. Don't worry, we will charge the dataframe for you. 
+
+```{r, eval = FALSE}
+#| class-source:  height_auto
+#| classes:  height_auto
+
+dfm_sentiment_himym <- dfm(toks_himym) %>% dfm_lookup(dictionary = sentiment_dictionary)
+```
+
+</br>
+
+We will charge the document for you from the repo that you download it. We got you. 
+
+```{r, eval = TRUE}
+#| class-source:  height_auto
+#| classes:  height_auto
+
+
+##Load a file
+#It is a DFM object, which comes from a token off all the season of HIMYM
+
+load(file = "data/dfm_sentiment_himym.Rdata")
+
+#Rename doc:id with the Titles of every episode
+docnames(dfm_sentiment_himym) <- df_himym_final_doc$Title
+
+```
+
+
+:::
+:::
+
+# 🔎 Sentiment analyis {auto-animate="true" auto-animate-easing="ease-in-out" background="radial-gradient( circle farthest-corner at 21.3% 26.5%,  rgba(47,181,227,1) 0%, rgba(155,208,237,1) 61.4% )" style="text-align: left; font-size: .7em;"}
+
+
+::: columns
+::: {.column width="50%"}
+
+</br>
+</br>
+</br>
+
+```{r, eval = TRUE}
+#| class-source:  height_auto
+#| classes:  height_auto
+
+#Format in long to plot positive and negative words
+df_sentiment_himym <- convert(dfm_sentiment_himym, "data.frame") %>% 
+  gather(positive.word, negative.word, key = "Polarity", value = "Words") %>% 
+  rename(Title = doc_id) %>% 
+  mutate(Title = as_factor(Title)) %>% 
+  left_join(df_title_s_chp, by ="Title") %>%
+  mutate(Polarity = replace(Polarity, is.character(Polarity), 
+                            str_replace_all(Polarity, 
+                                            pattern = "negative.word",
+                                            replacement = "Negative words")),
+         Polarity = replace(Polarity, is.character(Polarity), 
+                            str_replace_all(Polarity, 
+                                            pattern = "positive.word",
+                                            replacement = "Positive words")))
+
+```
+
+</br>
+
+Look the total (raw) words between positive and negative words per season. This is a good metric, but it doesn't tell us that much. At least, we know how many positive/begative worsd are used in the episodes. 
+
+:::
+::: {.column width="50%"}
+
+```{r, eval = TRUE, fig.align = 'center', size = 'tiny', fig.height=7}
+#| class-source:  height_auto
+#| classes:  height_auto
+#| code-fold: true
+
+ggplot4 <- ggplot(df_sentiment_himym, aes(x = Chapter, y = Words, fill = Polarity, group = Polarity)) + 
+  geom_bar(stat = 'identity', position = position_dodge(), size = 1) + 
+  facet_wrap(~ Season_w)+
+  scale_fill_manual(values = c("#c6006f", "#004383")) + 
+  scale_y_continuous(breaks = seq(0, 250, by = 50))+
+  theme_minimal(base_size = 14) +
+  labs(x = "Episodes",
+       y = "Frequency of words",
+       title = "Total of positive and negative words per season",
+       caption="Description: This plot identifies total of positive and negative words \n per season and episode")+
+  theme(panel.grid.major = element_line(colour="#cfe7f3"),
+        panel.grid.minor = element_line(colour="#cfe7f3"),
+        plot.title = element_text(margin = margin(t = 10, r = 20, b = 30, l = 30)),
+        #axis.text.x=element_text(size=15),
+        #axis.text.y=element_text(size=15),
+        plot.caption = element_text(size = 12, hjust = .1, color = "#939393"),
+        legend.position = "bottom",
+        plot.margin = margin(t = 20,  # Top margin
+                             r = 50,  # Right margin
+                             b = 10,  # Bottom margin
+                             l = 10))
+
+ggdraw(ggplot4) + draw_image(obj_img, x = .97, y = .97, 
+                             hjust = 1.1, vjust = .7, 
+                             width = 0.11, height = 0.1)
+
+```
+
+
+
+:::
+:::
+
+# 🗞 Weight the feature frequencies in a dfm {auto-animate="true" auto-animate-easing="ease-in-out" background="radial-gradient( circle farthest-corner at 21.3% 26.5%,  rgba(47,181,227,1) 0%, rgba(155,208,237,1) 61.4% )" style="text-align: left; font-size: 1.1em;"}
+
+# 🗞 Weight the feature frequencies in a dfm {auto-animate="true" auto-animate-easing="ease-in-out" background="radial-gradient( circle farthest-corner at 21.3% 26.5%,  rgba(47,181,227,1) 0%, rgba(155,208,237,1) 61.4% )" style="text-align: left; font-size: .7em;"}
+
+</br>
+
+::: columns
+::: {.column width="50%"}
+
+</br>
+
+dfm_weight() We can be more fair. Let's know calculate the weight of the words.
+
+This step is the same as the last one, but here we are taking into account the weights to do a fair comparison. 
+
+</br>
+
+```{r, eval = TRUE}
+#| class-source:  height_auto
+#| classes:  height_auto
+
+dfm_sentiment_himym_prop <- dfm_weight(dfm_sentiment_himym, scheme = "prop")
+
+df_sentiment_himym_prop <- convert(dfm_sentiment_himym_prop, "data.frame") %>% 
+  gather(positive.word, negative.word, key = "Polarity", value = "Words") %>% 
+  rename(Title = doc_id) %>% 
+  mutate(Title = as_factor(Title)) %>% 
+  left_join(df_title_s_chp, by = "Title") %>%
+  mutate(Polarity = replace(Polarity, is.character(Polarity), 
+                            str_replace_all(Polarity, 
+                                            pattern = "negative.word",
+                                            replacement = "Negative words")),
+         Polarity = replace(Polarity, is.character(Polarity), 
+                            str_replace_all(Polarity, 
+                                            pattern = "positive.word",
+                                            replacement = "Positive words")))
+
+```
+
+
+:::
+::: {.column width="50%"}
+
+```{r, eval = TRUE, fig.align = 'center', size = 'tiny', fig.height=7}
+#| class-source:  height_auto
+#| classes:  height_auto
+#| code-fold: true
+
+### 14.07.02.- Plot total of positive and negative words per season and episode -----
+
+#This step is the same as the last one, but here we are taking into account the weights to do a fair comparison
+
+ggplot5 <- ggplot(df_sentiment_himym_prop, aes(x = Chapter, y = Words, fill = Polarity, group = Polarity)) + 
+  geom_bar(stat = 'identity', position = position_dodge(), size = 1) + 
+  facet_wrap(~ Season_w) +
+  scale_fill_manual(values = c("#c6006f", "#004383")) + 
+  scale_y_continuous(breaks = seq(0, .8, by = .2))+
+  theme_minimal(base_size = 14) +
+  labs(x = "Episodes",
+       y = "Frequency of words",
+       title = "Weighted positve and negative words per season",
+       caption = "Description: This plot identifies the weighted total of positive and negative words \n per season and episode")+
+  theme(panel.grid.major = element_line(colour = "#cfe7f3"),
+        panel.grid.minor = element_line(colour = "#cfe7f3"),
+        plot.title = element_text(margin = margin(t = 10, r = 20, b = 30, l = 30)),
+        #axis.text.x=element_text(size=15),
+        #axis.text.y=element_text(size=15),
+        plot.caption = element_text(size = 12, hjust = .1, color = "#939393"),
+        legend.position = "bottom",
+        plot.margin = margin(t = 20,  # Top margin
+                             r = 50,  # Right margin
+                             b = 10,  # Bottom margin
+                             l = 10))
+
+ggdraw(ggplot5) + draw_image(obj_img, x = .97, y = .97, 
+                             hjust = 1.1, vjust = .7, 
+                             width = 0.11, height = 0.1)
+
+```
+
+
+:::
+:::
+
+# 📜 Wrangle dfm weight dataframe with measures {auto-animate="true" auto-animate-easing="ease-in-out" background="radial-gradient( circle farthest-corner at 21.3% 26.5%,  rgba(47,181,227,1) 0%, rgba(155,208,237,1) 61.4% )" style="text-align: left; font-size: 1.1em;"}
+
+# 📜 Wrangle dfm weight dataframe with measures {auto-animate="true" auto-animate-easing="ease-in-out" background="radial-gradient( circle farthest-corner at 21.3% 26.5%,  rgba(47,181,227,1) 0%, rgba(155,208,237,1) 61.4% )" style="text-align: left; font-size: .6em;"}
+
+::: columns
+::: {.column width="50%"}
+
+Now let's do a rate to check in which episodes it can be more a negative context. We will use `[Scaling Policy Preferences from Coded Political Texts from WILL LOWE, KENNETH BENOIT, SLAVA MIKHAYLOV, MICHAEL LAVER (2010)](https://kenbenoit.net/pdfs/Loweetal_2010_LSQ.pdf). They use a balance between positive words/negative words using a log scale, which you can see on the code.
+
+Here is their formula to get the proportion: 
+
+$$
+\Theta^{(L)}=log\frac{R + .5}{N + .5}
+$$
+
+<center>
+
+Where R = positive words and N = negative words.
+
+</center>
+
+```{r, eval = TRUE}
+#| class-source:  height_auto
+#| classes:  height_auto
+
+#Here we applied the formula proposed before. 
+
+df_sentiment_himym_prop_measure <- convert(dfm_sentiment_himym_prop, "data.frame") %>% 
+  rename(Sentiment = positive.word)  %>% rename(Title = doc_id) %>% 
+  left_join(df_title_s_chp, by = "Title")  %>%
+  mutate(measure = log((Sentiment + 0.5)/(negative.word + .5))) %>%
+  select(-Season) %>% 
+  rename(Season = Season_w)
+
+dfm_sentiment_himym_prop <- dfm_weight(dfm_sentiment_himym, scheme = "prop")
+
+```
+
+Plot measure of positivity among seasons
+
+Woooow! We confirm that is a positive Show, but it's interesting how certain episodes, mostly from the last season, have a negative context. This total makes sense because by that time Lily was fighting with Marshall for their baby and Robin, Ted and Barney were having problems (love triangle). 
+
+
+
+:::
+::: {.column width="50%"}
+
+```{r, eval = TRUE, fig.align = 'center', size = 'tiny', fig.height=8}
+#| class-source:  height_auto
+#| classes:  height_auto
+#| code-fold: true
+
+df_sentiment_himym_prop <- convert(dfm_sentiment_himym_prop, "data.frame") %>% 
+  gather(positive.word, negative.word, key = "Polarity", value = "Words") %>% 
+  rename(Title = doc_id) %>% 
+  mutate(Title = as_factor(Title)) %>% 
+  left_join(df_title_s_chp, by = "Title") %>%
+  mutate(Polarity = replace(Polarity, is.character(Polarity), 
+                            str_replace_all(Polarity, 
+                                            pattern = "negative.word",
+                                            replacement = "Negative words")),
+         Polarity = replace(Polarity, is.character(Polarity), 
+                            str_replace_all(Polarity, 
+                                            pattern = "positive.word",
+                                            replacement = "Positive words")))
+
+
+
+
+ggplot6 <- ggplot(df_sentiment_himym_prop_measure, aes(x = No.overall, y = measure, 
+                                            color = Season, group = Season)) +
+  scale_color_manual(values = brewer.pal(n = 9, name = "Set1"))+
+  geom_line(size = 1.5) +
+  geom_point(size = 3.2) + 
+  scale_x_continuous(breaks = seq(0, 208, by = 20))+
+  theme_minimal(base_size = 14) +
+  labs(x = "Number of episode",
+       y = "Rate",
+       title = "Measure of positivity among episodes",
+       caption="Description: This plot shows the positivity rate of every episode")+
+  theme(panel.grid.major = element_line(colour = "#cfe7f3"),
+        panel.grid.minor = element_line(colour = "#cfe7f3"),
+        plot.title = element_text(margin = margin(t = 10, r = 20, b = 30, l = 30)),
+        plot.caption = element_text(size=12, hjust = .1, color = "#939393"),
+        legend.position = "bottom",
+        plot.margin = margin(t = 20,  # Top margin
+                             r = 50,  # Right margin
+                             b = 40,  # Bottom margin
+                             l = 10), # Left margin
+        text = element_text()) + 
+  guides(colour = guide_legend(ncol = 3)) +
+  geom_hline(yintercept = 0, linetype = "dashed", 
+             color = "red", size = 1)
+
+
+ggdraw(ggplot6) + draw_image(obj_img, x = .97, y = .97, 
+                             hjust = 1.1, vjust = .7, 
+                             width = 0.11, height = 0.1)
+
+```
+
+:::
+:::
+
+
+# Thanks for your time {auto-animate="true" auto-animate-easing="ease-in-out" background="radial-gradient( circle farthest-corner at 21.3% 26.5%, rgba(47,181,227,1) 0%, rgba(155,208,237,1) 61.4% )" style="text-align: center; font-size: 1em;"}
+
+
+Thanks for your attention and we hope you find this material useful. If you have any question, please reach us. You have all of our information on the repo.
+
+Have a good day!
+
+</br>
+
+2,455 lines of code where created for this presentation.
+
+
+
+
 
 
 

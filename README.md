@@ -19,27 +19,27 @@ To teach you the main features of Quanteda and its potential, we will analyze a 
 Our repository is divided as follows:
 
 
-📁 data: Rdata frames to pull for our live coding session, presentations, etc.
+📁 **data**: Rdata frames to pull for our live coding session, presentations, etc.
 
-📁 exercises: Markdowns with exercises.
+📁 **exercises**: Markdowns with exercises.
 
-   📄 Exercise quanteda: Exercise quanteda_cleaned.Rmd
+-   📄 Exercise quanteda: Exercise quanteda_cleaned.Rmd
    
-   📄 Exercise quanteda with answers: Exercise quanteda.Rmd
+-   📄 Exercise quanteda with answers: Exercise quanteda.Rmd
 
-📁 live-coding-session: files that contains a markdown with the live coding session. 
+📁 **live-coding-session**: files that contains a markdown with the live coding session. 
 
-   📄 Exercise quanteda with answers: How_we_met_quanteda.html
+-   📄 Exercise quanteda with answers: How_we_met_quanteda.html
 
-📁 quarto: our main presentation to introduce the topic in quarto presentation.
+📁 **quarto**: our main presentation to introduce the topic in quarto presentation.
 
-   📄 Quanteda_presentation_final_version.html (We will have two parts for the live coding session: a Markdown and this presentation).
+-   📄 Quanteda_presentation_final_version.html (We will have two parts for the live coding session: a Markdown and this presentation).
 
-📁 scripts: raw data file of our live code session for the persons that are interested. 
+📁 **scripts**: raw data file of our live code session for the persons that are interested. 
 
-   📄 01_raw_script.R
+-   📄 01_raw_script.R
 
-📁 texts: How I Met Your Mother TV scripts. 
+📁 **texts**: How I Met Your Mother TV scripts. 
 
 
 

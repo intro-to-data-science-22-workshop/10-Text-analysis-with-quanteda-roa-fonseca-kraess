@@ -19,6 +19,7 @@ output:
       after_body: assets/footer.html
 ---
 
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
 
@@ -74,6 +75,344 @@ knitr::include_graphics(h_url)
 <center>Students name: <strong>Jorge Roa, Augusto Fonseca, Alexander Kraess </strong></center>
 
 </font>
+
+
+------------------------------------------------------------------------
+
+# 🧬 Quanteda
+
+</br>
+
+-   Quanteda is an R package for managing and analyzing textual data.
+-   Developed by Kenneth Benoit, Kohei Watanabe, and other contributors.
+-   Oficial information about the package: [Quanteda](http://quanteda.io/) webpage
+-   Also available on [CRAN](https://cran.r-project.org/web/packages/quanteda/index.html)
+
+<center>
+
+![](images/quanteda.svg){fig-align="center" height="80"}
+
+</center>
+
+------------------------------------------------------------------------
+
+## 🌅 What is quanteda and what do we need it for?
+
+</br>
+
+-   **The world of data has experienced unprecedented growth.**
+
+    -   Text data has also increased with time, so its analysis and processing represent a great opportunity.
+    -   Political speeches, texts, social media, messages, digitalization of old texts.
+
+-   **Natural Language Processing (NLP)**
+
+    -   NLP: the way computers read text and imitate human language.
+
+    -   We can apply NLP techinques with quanteda: more easy to do research. (Tokenization, Stopwords, and part of speeches)
+
+
+-   **`Quanteda` is a package that gives you the power of process, wrangle and analyze text in multiple ways.**
+
+    -   It's easy to use and the applications that has are enormous.
+
+    -   Quantitative and Qualitative Analysis: best of both worlds in one single package.
+
+    -   Text analysis: best way to do it.
+
+</br>
+
+<center>
+
+![](https://media0.giphy.com/media/ofrkfuqsR8mvm/giphy.gif?cid=ecf05e47u9so735gxv9gsqec2jombn6idy6qrkczmfn89che&rid=giphy.gif&ct=g){fig-align="center" height="200"}
+
+</center>
+
+------------------------------------------------------------------------
+
+## 🏗 What do we need Quanteda for?
+
+</br>
+
+A lot of data is in text form, many tools convert audios into text and there is a lot of text data on webpages and social media.
+
+-   Social science:
+
+    -   Analysis of political speeches.
+    -   Theory building and testing through text analysis.
+
+</br>
+
+<center>
+
+![](images/text_cases.png){fig-align="center" height="460"}
+
+</center>
+
+</br>
+
+<center>💣 **The power of Quanteda allow us to do multiple analysis in different areas** 💣</center>
+
+------------------------------------------------------------------------
+
+# ❓❗ What do you need to always remember about quanteda
+
+**Three things**
+
+
+<hr class="rounded">
+</hr>
+
+📖 1.-Corpus: the original data that will be pre-processed and analyzed.
+
+ </br> 
+
+🛠 2.-Tokens: Tokenization storing the words of our texts for further analysis.
+
+ </br> 
+
+📑 3.-Document Feature Matrix (DFM): helps us analyze and store the features of a text.
+
+<hr class="rounded">
+
+</hr>
+
+-   📚 Text files: Quanteda uses `readtext`package. We can read .txt, .csv, .tab, .json. files.
+
+      -   Even, we can read .pdf, .doc and .docx files.
+      
+      -   Amazing, right? For our tutorial, we will use txt files. 
+      
+  </br>   
+  
+<center>
+
+![](images/workflow.png){fig-align="center" height="460"}
+
+</center>
+
+------------------------------------------------------------------------
+
+## 🧙 Corpus
+
+</br> 
+  
+**Important things:**
+
+<hr class="rounded">
+
+</hr>
+
+-   📚 We can create a corpus from:
+
+      -   Character vectors   `c()`
+      
+      -   🖼 Dataframes that contain one column with a string or a text to be analyzed.
+      
+       -   ⛔ IMPORTANT ⛔: your string variable of your df must be name as **text**
+      
+      -   SimpleCorpus from `tm` package. 
+      
+     
+<hr class="rounded">
+
+</hr>
+
+</br> 
+
+Here you can appreciate with our exercises what we can obtain. 
+
+1.-**Text**: Name of our document. In our case, the names are the episodes titles of HIMYM.
+
+2.-**Types**: Different types of features that we can wrangle.
+      
+3.-**Tokens**: Number of tokens that our documents have.
+
+4.-**Sentences**: Number of sentences per document. In our case, TV scripts. 
+
+5.-**Chapter** and **No.overall** are variables that we added. We will explain that later.
+
+</br> 
+
+<center>
+
+![](images/corpus.png){fig-align="center" height="260"}
+
+
+</center>
+
+------------------------------------------------------------------------
+
+## 🪆 Tokens
+
+</br> 
+
+**Important things:**
+
+
+<hr class="rounded">
+</hr>
+
+Tokens are just characters that segments texts into tokens (mainly words or sentences) by word boundaries.
+
+-   📚 What a token object contains:
+
+      - Documents and docvars with the split of them into small units: words.  
+      
+-   😎 Why tokenization is awesome?
+
+-   You have functions like 
+
+      - `remove_separators`
+      - `remove_numbers`
+      - `remove_symbols`
+
+     
+<hr class="rounded">
+</hr>
+
+
+<center>
+
+Here you can appreciate with our exercises what we can obtain. 
+
+You can see the words that are separated.
+
+</br> 
+
+![](images/tokens.png){fig-align="center" height="260"}
+
+</center>
+
+------------------------------------------------------------------------
+
+## 📜 Document Feature Matrix
+
+<center>
+
+![](https://media2.giphy.com/media/gNzDiRiZS3SXS/giphy.gif?cid=ecf05e47qvtq57n8sujf7fe8zfpkgywmq2vltwqvpxr0dlwv&rid=giphy.gif&ct=g){height="260"}
+
+</center>
+
+<hr class="rounded">
+</hr>
+
+
+**Important things:**
+
+
+DFM objects are super useful because we can do stats with them and analysis in general. 
+
+-   📜 What a DFM object contains:
+
+      - A matrix is a 2 dimensional array with m rows, and n columns.  
+      
+      - In a dfm each row represents a document, and each column represents a feature.
+      
+      - Enables us to identify the most frequent features of a document.
+
+      - Analyzes text based on the “bag of words” model.
+     
+<hr class="rounded">
+</hr>
+
+
+<center>
+
+Here you can appreciate with our exercises what we can obtain. 
+
+You can see the features.
+
+</br> 
+
+
+![](images/dfm.png){fig-align="center" height="200"}
+
+</center>
+
+</br> 
+
+------------------------------------------------------------------------
+
+## ⌛ Workflow
+
+</br> 
+
+![**Source: our amazing classmates from the MDS 2023: Laura Menicacci & Dinah Rabe**](images/magicworkflow.png){fig-align="center" height="300"}
+
+------------------------------------------------------------------------
+
+# 🏎 Principal functions of Quanteda
+
+</br> 
+
+**Main parts:**
+
+<hr class="rounded">
+</hr>
+
+Remember that you can use a pipe`%>%`for all the functions of the package. 
+
+-   First step: `corpus(your_dataframe, text, etc)` = Creates a corpus object from available sources.
+
+-   Second step: `tokens(your_corpus_object)` = Construct a tokens object.
+
+-   Third step: `dfm(your_token_object)` = Construct a sparse document-feature matrix, from a character, corpus, tokens, or even other dfm object.
+
+------------------------------------------------------------------------
+   
+## 🧙  Corpus functions
+
+</br> 
+
+Remember that you can use a pipe`%>%`for all the functions of the package. 
+
+`docnames(your_corpus)` = rename you docvars. 
+
+`corpus_subset()` = subsets of a corpus that meet certain condition. Like a filter. 
+
+`corpus_group(your_text_object, dataframe, etc)` = Combine documents in a corpus object by a grouping variable.
+
+`corpus_trim(your_text_object, dataframe, etc)` = Removes sentences from a corpus or a character vector shorter than a specified length.
+
+`corpus_segment(your_text_object, dataframe, etc)` = Segment corpus text(s) or a character vector, splitting on a pattern match. 
+
+------------------------------------------------------------------------
+
+## 🪆 Token functions
+
+</br> 
+
+Remember that you can use a pipe`%>%`for all the functions of the package. 
+
+`tokens()` = Construct a tokens object. 
+
+-   `tokens_select(your_token_obj)` = These function select or discard tokens from a tokens object. 
+      - `tokens_remove(your_token_obj)` = Same as tokens select, but we remove words, phrases, etc.
+      - `tokens_keep(your_token_obj)` = Same as tokens select, but we keep words, phrases, etc.
+
+`tokens_group(your_token_obj)` = Combine documents in a tokens object by a grouping variable.
+
+`tokens_tolower(your_token_obj)` = Convert the features of a tokens object and re-index
+the types. All to lower cases.
+
+
+------------------------------------------------------------------------
+
+## 📜 Document Feature Matrix functions
+
+</br> 
+
+Remember that you can use a pipe `%>%` for all the functions of the package. 
+
+`dfm(your_token_obj)` = Construct a sparse document-feature matrix. 
+
+`dfm_lookup(your_token_obj)` = Apply a dictionary to a dfm by looking up all dfm features for matches.
+
+`dfm_match(your_token_obj)` = Match the feature set of a dfm to a specified vector of feature names. 
+
+`dfm_subset(your_token_obj)` = Returns document subsets of a dfm that meet certain condition
+
 
 ------------------------------------------------------------------------
 
@@ -193,11 +532,9 @@ Source: [Collider](https://collider.com/how-i-met-your-mother-cast-and-character
 
 ------------------------------------------------------------------------
 
-<center>
-
-
 ## 🎭 Let's Start
 
+<center>
 
 ![](https://media3.giphy.com/media/xnNKRYdeemYi4/giphy.gif?cid=ecf05e47ueaba5lvfpep5evcnun2myllhnx26vj707in4zoe&rid=giphy.gif&ct=g){fig-align="center" height="300"}
 
@@ -206,9 +543,11 @@ Source: [Collider](https://collider.com/how-i-met-your-mother-cast-and-character
 
 # 📕 Libraries
 
+</br>
+
 These will be the libraries we will use for our analysis. In every line, you will find the purpose of it.
 
-```{r libraries, eval = TRUE}
+```{r libraries, eval = TRUE,  class.source = "fold-show"}
 
 library(readtext) #For import and Handling for Plain and Formatted Text Files.
 library(rvest) #For easily Harvest (Scrape) Web Pages.
@@ -235,6 +574,8 @@ obj_img <- image_read(path = "https://bit.ly/3twmH2Y")
 ```
 
 # 🧞 Web scrap TV shows scripts
+
+</br>
 
 We will do a web scraping of our favorite TV show: “How I Met Your Mother.” For the above, we will do web scraping to obtain the scripts of the 208 episodes that the TV show has. We will define the URLs, obtain the information to know if we can do web scraping, and name the directory where we want to save our files.
 
@@ -273,7 +614,7 @@ directory_path <- paste("texts/how-i-met-your-mother/", v_tv_show, sep = "")
 
 ------------------------------------------------------------------------
 
-##🪡 Loop for download TV scripts
+## 🪡 Loop for download TV scripts
 
 </br>
 
@@ -321,6 +662,8 @@ for (x in html_url_all_seasons) {
 
 </br>
 
+It's important to attach our scripts with relevant information about them. For example, episode title, number of episode, number of season, director, etc. That's why we will webscrap this information from the internet. 
+
 ```{r 03.01., eval = TRUE, class.source = "fold-show"}
 
 url_himym <- "https://en.wikipedia.org/wiki/List_of_How_I_Met_Your_Mother_episodes"
@@ -345,9 +688,11 @@ l_tables_himym[1]
 
 ------------------------------------------------------------------------
 
-### Data cleaning to wrangle html tables (Characters of the TV show)
+### 🤖 Data cleaning to wrangle html tables (Characters of the TV show)
 
 </br>
+
+Of course, we must clean our tables to have a final dataframe with the texts and the information of every episode. 
 
 ```{r 03.01.01, eval = TRUE, class.source = "fold-show"}
 
@@ -382,9 +727,11 @@ df_characters_w
 
 ------------------------------------------------------------------------
 
-###  Data cleaning to wrangle html tables (Information of the TV Show)
+###  🌪 Data cleaning to wrangle html tables (Information of the TV Show)
 
 </br>
+
+Look how with our code we cleaned the information of the TV Show and know we have it in a dataframe. 
 
 ```{r 03.01.02, eval = TRUE}
 
@@ -433,6 +780,8 @@ df_himym_final
 
 </br>
 
+This is the final and most important step of the web scrap. Here, we are merging our TV show scripts and the information of the episodes in one single dataframe. 
+
 ```{r 04.01, eval = TRUE}
 
 df_texts_himym <- readtext::readtext("texts/how-i-met-your-mother/*.txt")
@@ -460,6 +809,8 @@ Press the arrows in the top right corner of this interactive dataframe. As you c
 
 ------------------------------------------------------------------------
 
+Once, we have our final dataframe, now we can start our analysis using the `quanteda` package. 
+
 ## 🧥 First step: Define a corpus
 
 </br>
@@ -470,7 +821,8 @@ Look our corpus, it's divided into types, tokens and even sentences.
 
 corp_himym <- corpus(df_himym_final_doc)  #Build a new corpus from the texts
 
-docnames(corp_himym) <- df_himym_final_doc$Title
+docnames(corp_himym) <- df_himym_final_doc$Title #With docnames() we can change the name of our texts.
+#In our case, we putted the title of the episodes. 
 
 summary(corp_himym, n = 15)
 
@@ -515,7 +867,7 @@ toks_himym_s1
 
 </br>
 
-Please, take a look into our Document Feature Matrix. Look know how it is counting our ocurreces. We can do multiple things with them. 
+Please, take a look into our Document Feature Matrix. Look know how it is counting our ocurrences. We can do multiple things with them. 
 
 ```{r 05.03, eval = TRUE, class.source = "fold-show"}
 
@@ -536,7 +888,7 @@ toks_himym_dm_s1
 
 ## 🎯 Similarity between episodes
 
-textstat_simil function we will find the similarity between episodes
+textstat_simil() function. It's super useful because we will find the similarity between episodes for the first season. 
 
 </br>
 
@@ -579,7 +931,7 @@ rect.hclust(clust, k = 5, border = "red")
 
 ```
 
-Look how amazing the similairty it is. 
+Look how amazing the similarity it is. The similarity is higher for episodes like "Zip, Zip, Zip" and Cupcake. And, for the episodes that are less similars are "The Pineapple Incident" and "The Limo".
 
 </br>
 
@@ -598,17 +950,17 @@ knitr::include_graphics("images/similarity.png")
 
 ## 🪅 Distance between episodes
 
-textstat_dist function. Here distance is the opposed of similarity. More distance equals less similar. 
+textstat_dist() function. Here distance is the opposed of similarity. More distance equals less similar. Rememebr our similarity chart? Well, is the same, but here we are obtaining distance. 
 
 ```{r 05.06, eval = FALSE, class.source = "fold-show"}
 
-tstat_simil <- textstat_simil(toks_himym_dm_s1) #Check similarity between episodes of the first season
+tstat_dist <- textstat_dist(toks_himym_dm_s1) #Check similarity between episodes of the first season
 
-clust <- hclust(as.dist(tstat_simil)) #Convert our object into a cluster (For visualization purposes)
+clust <- hclust(as.dist(tstat_dist)) #Convert our object into a cluster (For visualization purposes)
 
-dclust <- as.dendrogram(clust)  #Convert our cluster into a dendrogram (For visualization purposes)
+dclust_dist <- as.dendrogram(clust)  #Convert our cluster into a dendrogram (For visualization purposes)
 
-dclust <- reorder(dclust, 1:22) #Order our visualization
+dclust_dist <- reorder(dclust, 1:22) #Order our visualization
 
 ```
 
@@ -634,6 +986,8 @@ rect.hclust(clust, k = 5, border = "red")
 
 ```
 
+Remember the episodes "The Pineapple Incident" and "The Limo" are the less similar ones? Well, here these episodes are the ones that have more distance between them. 
+
 ```{r distance, fig.align = 'center', size = 'tiny', echo=FALSE}
 
 
@@ -648,13 +1002,13 @@ knitr::include_graphics("images/distance.png")
 
 ## 🎎 Appearances of actors by season
 
-We will get the number of appearances by actor per season and episode. 
+Now, we want to know the characters of the TV Show. We will get the number of appearances by actor per season and episode. 
 
-```{r 07, eval = TRUE}
+```{r 07, eval = TRUE, class.source = "fold-show"}
 
 #Remember our second step: tokenize our corpus. 
 
-toks_himym <- tokens(corp_himym, #corpus from all the episodes from the first season
+toks_himym <- tokens(corp_himym, #corpus from all the episodes
                      remove_punct = TRUE, #Remove punctuation of our texts
                      remove_separators = TRUE,  #Remove separators of our texts
                      remove_numbers = TRUE, #Remove numbers of our texts
@@ -674,8 +1028,9 @@ df_final_actors <-  as.data.frame(textstat_frequency(dfm_actors, groups = c(1:9)
 df_final_actors
 ```
 
+</br>
 
-Here, we plot this frequency of actors
+Here, we plot this frequency of actors. There is no secret that Ted is the most famous character of the show because he is the one that is telling the story to his sons. It's interesting how Barney had a "glow up" for the end of the last season. What is ironic is that the TV Show is called "How I Met Your Mother", but the times that "Mother" appears on the seasons is not that much.  
 
 ```{r 07.01, eval = TRUE, fig.height=8, fig.width=9}
 
@@ -716,7 +1071,9 @@ ggdraw(ggplot1) + draw_image(obj_img, x = .97, y = .97,
 
 ## 🌊 Wordcloud of PRINCIPAL characters that appears in HIMYM
 
-Wordcloud plots are super useful to realize how many words and the repetition of them in a text. 
+</br>
+
+Wordcloud plots are super useful to analyze how many words and the repetition of them appears in a text. Knowing this, we want to do some analysis using wordclouds. 
 
 ```{r 08.0, eval = TRUE, class.source = "fold-show"}
 
@@ -741,10 +1098,7 @@ toks_himym_characters
 dfm_general_characters <- toks_himym_characters %>%
                           dfm()
 
-
-#In this case, we just want the characters.
-
-toks_himym_characters
+dfm_general_characters
 ```
 
 ```{r 08.01 word, eval = FALSE, class.source = "fold-show"}
@@ -758,6 +1112,8 @@ textplot_wordcloud(dfm_general_characters,
 ```
 
 
+And here we have it. Our first wordcloud plot. Looks amazing! Remember that you can change the color of it, the sizes and other relevant things. 
+
 ```{r wordcloud, fig.align = 'center', size = 'tiny', echo=FALSE}
 
 
@@ -770,7 +1126,9 @@ knitr::include_graphics("images/wordcloud_princ.png")
 
 ## ☄ Wordcloud of SECONDARY characters that appears in HIMYM
 
-Now, we do the same, but with our seconday characters.
+</br>
+
+Now, let's do the same, but just with our secondary characters.
 
 ```{r 08, eval = TRUE, class.source = "fold-show"}
 
@@ -808,6 +1166,8 @@ textplot_wordcloud(dfm_general_sec_characters,
 ```
 
 
+For example, here, we specified another type of palette. The plotted names are just secondary characters because we removed the principal. Zoey, Stella, and Victoria are Ted’s ex-girlfriends. 
+
 ```{r wordcloud_sec, fig.align = 'center', size = 'tiny', echo=FALSE}
 
 
@@ -818,18 +1178,26 @@ knitr::include_graphics("images/wordcloud_sec.png")
 
 ------------------------------------------------------------------------
 
-# 🔥 spaCy and spaCyr
+# 🔥🌶️ spaCy and spaCyr
 
-spacyr provides a convenient R wrapper around the Python spaCy package. It offers easy access to the following functionality of spaCy.
-This package is amazing because here what spacyr is doing is clasifying automatically our words into nouns, adjectives, verbs, dates and much more.
+</br>
 
-Of course, it is not 100% accurate, but it is an amazing tool to do some analysis!
+spacyr provides a convenient R wrapper around the Python spaCy package. It offers easy access to the following functionality of spaCy. This package is amazing because here what spacyr is doing is clasifying automatically our words into nouns, adjectives, verbs, dates and much more. Of course, it is not 100% accurate, but it is an amazing tool to do some analysis!
+
+</br>
+
+<center>
 
 ![](https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/SpaCy_logo.svg/1200px-SpaCy_logo.svg.png){fig-align="center" height="100"}
+
+</center>
+
 
 ------------------------------------------------------------------------
 
 ```{r 10_spacy, eval = FALSE, class.source = "fold-show"}
+
+#Be patient because it takes around 5-10 minutes to do the installation. Also, please follow the steps marked on your monitor when you are installing the packages. 
 
 library(spacyr)
 
@@ -840,6 +1208,8 @@ spacy_initialize(model = "en_core_web_sm")
 sp_parse_doc <- spacy_parse(df_himym_final_doc, tag=TRUE)
 
 ```
+
+This is our output. Look how the package separate our words automatically and also classified them as nouns, verbs, names, etc. It's amazing!! Of course, the classification is not 100% accurate, but it gives us a good idea for know different things about our texts. 
 
 ```{r 10_01_doc, eval = TRUE, class.source = "fold-show"}
 
@@ -864,7 +1234,7 @@ sp_parse_var_ADJ <- sp_parse_var %>% filter(pos=="ADJ")
 
 ## ⛄ Get wordcloud using an spaCyr output
 
-We will get a wordcloud using the spacYr output. We will divide for this examples into adjectives and other features. Please, checl the package, it's amazing.
+We will get a wordcloud using the spacYr output. We will divide the output into adjectives and other features. Please, check the package, you will not regret it. 
 
 ```{r 08_tok_adj, eval = TRUE, class.source = "fold-show"}
 
@@ -896,7 +1266,9 @@ df_general_ADJ <- toks_himym_ADJ %>%
 
 ```
 
-Look how amazing are the adjectives distributed into the 8 seasons. Unfortunately the function only allows us 8 groups. 
+</br>
+
+Look how amazing are the adjectives distributed into the 8 seasons. Unfortunately the function only allows us 8 groups. Every color are the adjectives available in the different seasons. 
 
 ```{r 08.01 word_adj, eval = FALSE, class.source = "fold-show"}
 
@@ -922,8 +1294,9 @@ knitr::include_graphics("images/wordcloud_adj.png")
 
 ## 🎧 Get frequency of adjectives
 
+</br>
 
-We will get a frequency of adjectives using the spacYr output. We repeat, we can do amazing things in terms of analysis. 
+We will get a frequency of adjectives using the spacYr output. Again, we can do amazing things in terms of analysis. 
 
 ```{r 11, eval = TRUE, class.source = "fold-show"}
 
@@ -952,7 +1325,7 @@ df_freq_gen_dfm_final <- right_join(df_freq_gen_dfm, df_freq_gen_dfm_match,
 ```
 
 
-Look the frequency of adjectives. It's amazing how the word sorry appears and tends to be the one that our beautiful characters keep using. 
+Look the frequency of adjectives. It's incredible how the word sorry appears and tends to be the one that our beautiful characters keep using. Maybe they did awful things? You need to see the TV Show and decide by yourself. 
 
 
 ```{r 11.02, eval = TRUE, fig.height=7, fig.width=9}
@@ -995,7 +1368,9 @@ ggdraw(ggplot2) + draw_image(obj_img, x = .97, y = .97,
 
 # ⚡ Network plot
 
-How the characters are related each other? We will find it with the amazing function network plot. 
+</br>
+
+How the characters are related to each other? We will find it with the amazing function network plot. 
 
 ```{r 12, eval = TRUE, class.source = "fold-show"}
 
@@ -1007,6 +1382,7 @@ token_characters_himym <- tokens(corp_himym, #corpus from all the episodes from 
                                  remove_numbers = TRUE, #Remove numbers of our texts
                                  remove_symbols = TRUE) %>%  #Remove symbols of our texts
   tokens_keep(c(unique(df_characters_w$name))) %>% #We want to keep all the characters
+  #Remember the characters that we web scraped before? Here we are suing that vector to filter characters!
   tokens_tolower() #We want lower cases in our tokens
 
 ```
@@ -1025,6 +1401,8 @@ fcm_characters_himym <- token_characters_himym %>%
 
 ## 🎷 Network plot of all the characters
 
+</br>
+
 ```{r 12_net, eval = TRUE, class.source = "fold-show"}
 
 #Vector with all the characters
@@ -1041,12 +1419,15 @@ textplot_network(fcm_select(fcm_characters_himym, v_top_characters),
 
 ```
 
+As we expected, the network is around the principal characters, but also we can appreciate how the characters are related to each other. Here, we include every single person that appears on the show. In visualization terms, it could be a mess because we see a lot of lines. Let’s filter this FCM object again to analyze the 30 principal characters according to the frequency. 
 
 ------------------------------------------------------------------------
 
 ## 🎷 Network plot of the principal 30 characters
 
-If we want to be more specific, then we can reduce our network plot into just 30 characters. 
+</br>
+
+As we said before, if we want to be more specific, we can reduce our network plot to 30 characters. We will follow the same steps s back but filter to have the top features of the first 30 characters.  
 
 ```{r 13_net, eval = TRUE, class.source = "fold-show"}
 
@@ -1067,7 +1448,9 @@ textplot_network(fcm_select(fcm_characters_himym, v_top_characters_2),
 
 ## 🎸 Network plot of Ted
 
-If we want to be even more specific, we can even reduce our network plot and weight it with just one character. In this case, Ted.  
+</br>
+
+If we want to be even more specific, we can reduce our network plot and weight it with just one character. In this case, Ted.  We are “weighting” this network plot because we want to see the density of how many times that character is related to Ted. We can do this with the previous plots to check how the network changes. 
 
 
 
@@ -1111,11 +1494,13 @@ textplot_network(fcm_select(fcm_characters_himym_ted, v_top_characters_3),
 
 ------------------------------------------------------------------------
 
-##🎹  Text stat collocation
+# 🎹  Text stat collocation
+
+</br>
 
 Identify and score multi-word expressions, or adjacent fixed-length collocations, from text using textstat_collocations().
 
-We want to see which phrases tend to be the more used ones. 
+We want to see which phrases are the more used ones in the context of the first season. This is a simple step to understanding how vital some compound phrases can be. 
 
 
 ```{r 15, eval = TRUE, class.source = "fold-show"}
@@ -1140,8 +1525,7 @@ df_himym_s1_coll <- data.frame(himym_s1_collocations) %>%
 
 ```
 
-Good! look how collocations like right now, get married, party number are the most used ones in the first season. 
-
+Good! look what collocations are like right now, get married and party number are the most used ones in the first season. The Lambda and Z statistics are metrics used to plot the different allocations. Every dot in this graph represents one compound phrase. The size of each dot means how many times the characters said that phrase. 
 
 ```{r 15.02, eval = TRUE, fig.height=7, fig.width=9}
 
@@ -1180,9 +1564,11 @@ ggdraw(ggplot3) + draw_image(obj_img, x = .97, y = .97,
 
 ------------------------------------------------------------------------
 
-## 🎻 Locate keywords-in-context
+# 🎻 Locate keywords-in-context
 
-What about now to look the most iconics phrases in HIMYM. It's going to be...wait for it...legendary. We can do that to with locate keywords in context.
+</br>
+
+What about now to look the most iconics phrases in HIMYM. It's going to be...wait for it...legendary. We can do that with locate keywords in context.
 
 ```{r 16_0, eval = TRUE, class.source = "fold-show"}
 
@@ -1202,8 +1588,9 @@ corp_himym_s5 <- corpus_subset(corp_himym, #our corpus
                                Season == 5) #Filter by season
 ```
 
+</br>
 
-An example with the word: Love
+An example with the word: Love. Because this TV Show talks about love, let's find this word in the context of different episodes. We will use the fifth season to locate the word in context "Love". 
 
 ```{r 16, eval = TRUE, class.source = "fold-show"}
 
@@ -1232,10 +1619,15 @@ df_kw_himym_s5_love
 
 ```
 
+
+</br>
+
 That's amazing: it's seems that the word love appears 150 times just in the fifth season. 
 
+------------------------------------------------------------------------
 
-An example with the word: legendary
+Now, let's do another example with the word: legendary. We will search this word but for all seasons. 
+
 ```{r 17, eval = TRUE, class.source = "fold-show"}
 
 toks_himym <- tokens(corp_himym,  #Define our corpus for all seasons
@@ -1263,10 +1655,13 @@ df_kw_himym_legendary
 
 ```
 
+</br>
+
 Mmmhhh, we tought that the word legendary was going to appeared more. Maybe they didn't mention that so often. 
 
+------------------------------------------------------------------------
 
-We can even do phrases like: Wait for it. But don't worry, you don't need to wait us. We are here. 
+Also, we can even do phrases like: Wait for it. But don't worry, you don't need to wait us. We are here. 
 
 ```{r 18.1, eval = TRUE, class.source = "fold-show"}
 
@@ -1289,11 +1684,13 @@ df_kw_himym_wait_for
 
 ```
 
-
+If you can see, according to our rows, the phrase wait for it appears 80 times thorugh the different episodes. 
 
 ------------------------------------------------------------------------
 
 # 🔎 Sentiment analyis
+
+</br>
 
 EXTRA: just because we were having a lot of fun with this package. We are going to do a quick sentiment analysis.
 
@@ -1311,7 +1708,9 @@ toks_himym <- tokens(corp_himym, #Our corpus object
 
 ```
 
-We will use the get_sentiments functions to get positive and negative words. We have four sources. We are going to use bing, but you can choose the one that you like the most. 
+</br>
+
+We will use the get_sentiments functions from the `tidytext` package to get positive and negative words. We have four sources. We are going to use bing, but you can choose the one that you like the most. What we are obtaning is just string vectors with negative and positive words. 
 
 ```{r 19.01, eval = TRUE, class.source = "fold-show"}
 
@@ -1322,6 +1721,8 @@ df_negative_words <- get_sentiments("bing") %>%
   filter(sentiment == "negative")
 
 ```
+
+</br>
 
 We must define a dictionary to put it into a dictionary and pass it thorugh a dfm object. We know that you are an expert on that now. 
 
@@ -1334,6 +1735,7 @@ l_sentiment_dictionary <- dictionary(list(positive = df_positive_words,
 
 ```
 
+</br>
 
 💡 Warning: this functions takes 30 minutes: be patience. Don't worry, we will charge the dataframe for you. 
 
@@ -1342,7 +1744,9 @@ l_sentiment_dictionary <- dictionary(list(positive = df_positive_words,
 dfm_sentiment_himym <- dfm(toks_himym) %>% dfm_lookup(dictionary = sentiment_dictionary)
 ```
 
-We will charge the document for you. We got you. 
+</br>
+
+We will charge the document for you from the repo that you download it. We got you. 
 
 ```{r 19.03, eval = TRUE, class.source = "fold-show"}
 ##Load a file
@@ -1354,6 +1758,8 @@ load(file = "data/dfm_sentiment_himym.Rdata")
 docnames(dfm_sentiment_himym) <- df_himym_final_doc$Title
 
 ```
+
+</br>
 
 We will give a format to our dataframe.
 
@@ -1402,15 +1808,17 @@ ggdraw(ggplot4) + draw_image(obj_img, x = .97, y = .97,
 
 ```
 
-Look the total (raw) words between positive and negative words per season
+Look the total (raw) words between positive and negative words per season. This is a good metric, but it doesn't tell us that much. At least, we know how many positive/begative worsd are used in the episodes. 
 
 ------------------------------------------------------------------------
 
 ## 🗞 Weight the feature frequencies in a dfm
 
+</br>
+
 dfm_weight() We can be more fair. Let's know calculate the weight of the words.
 
-This step is the same as the last one, but here we are taking into account the weights to do a fair comparison
+This step is the same as the last one, but here we are taking into account the weights to do a fair comparison. 
 
 
 ```{r 20.03, eval = TRUE, class.source = "fold-show"}
@@ -1420,8 +1828,9 @@ dfm_sentiment_himym_prop
 
 ```
 
+</br>
 
-It seems that HIMYM is positive after all. Amazing. 
+We repeat the same proces. It seems that HIMYM is positive after all. Amazing. 
 
 ```{r 20.02, eval = TRUE, fig.height=9, fig.width=9}
 
@@ -1476,15 +1885,27 @@ ggdraw(ggplot5) + draw_image(obj_img, x = .97, y = .97,
 
 ## 📜 Wrangle dfm weight dataframe with measures
 
-Now let's do a rate to check in which episodes it can be more a negative context. We will use Scaling Policy Preferences from Coded Political Texts
-from WILL LOWE, KENNETH BENOIT, SLAVA MIKHAYLOV, MICHAEL LAVER.
+</br>
 
-They use a balance between positive words/negative words using a log scale, which you can see on the code. 
+Now let's do a rate to check in which episodes it can be more a negative context. We will use `[Scaling Policy Preferences from Coded Political Texts from WILL LOWE, KENNETH BENOIT, SLAVA MIKHAYLOV, MICHAEL LAVER (2010)](https://kenbenoit.net/pdfs/Loweetal_2010_LSQ.pdf).
 
+</br>
+
+They use a balance between positive words/negative words using a log scale, which you can see on the code.
+
+</br>
+
+Here is their formula to get the proportion: 
+
+$$
+\Theta^{(L)}=log\frac{R + .5}{N + .5}
+$$
+Where R = positive words and N = negative words. 
 
 ```{r 21.13, eval = TRUE, class.source = "fold-show"}
 
-#Here we 
+#Here we applied the formula proposed before. 
+
 df_sentiment_himym_prop_measure <- convert(dfm_sentiment_himym_prop, "data.frame") %>% 
   rename(Sentiment = positive.word)  %>% rename(Title = doc_id) %>% 
   left_join(df_title_s_chp, by = "Title")  %>%
@@ -1500,11 +1921,11 @@ dfm_sentiment_himym_prop
 
 ```
 
+</br>
 
+Plot measure of positivity among seasons
 
-Plot measure of positivity among season
-
-Woooow! We confirm that is a positive series, but it's interesting how certain episodes, mostly from the last season, have a negative context. This total makes sense because by that time Lily was fighting with Marshall for their baby and Robin, Ted and Barney were with problems. 
+Woooow! We confirm that is a positive Show, but it's interesting how certain episodes, mostly from the last season, have a negative context. This total makes sense because by that time Lily was fighting with Marshall for their baby and Robin, Ted and Barney were having problems (love triangle). 
 
 ```{r 23.02, eval = TRUE, fig.height=9, fig.width=13}
 
@@ -1555,3 +1976,62 @@ ggdraw(ggplot6) + draw_image(obj_img, x = .97, y = .97,
                              hjust = 1.1, vjust = .7, 
                              width = 0.11, height = 0.1)
 ```
+
+</br>
+
+Thanks for your attention and we hope you find this material useful. If you have any question, please reach us. You have all of our information on the repo.
+
+Have a good day!
+
+
+# 🍿 References and resources for this project 
+
+</br>
+
+-   [Quanteda Webpage](https://quanteda.io/){target="_blank"}
+
+-   [A Beginner’s Guide to Text Analysis with quanteda (University of Virginia)](https://data.library.virginia.edu/a-beginners-guide-to-text-analysis-with-quanteda/){target="_blank"}
+
+-   [Amazing document created by Kenneth Benoi (University of Münster)](https://www.uni-muenster.de/imperia/md/content/ifpol/grasp/2019-06-27_muenster.pdf){target="_blank"}
+
+-   [An Introduction to Text as Data with quanteda (Penn State and Essex courses)](https://burtmonroe.github.io/TextAsDataCourse/Tutorials/TADA-IntroToQuanteda.nb.html){target="_blank"}
+
+-   [Text as Data: quantitative text analysis with R. Data Science Summer School 2022. Hertie School](https://ds3.ai/courses/textasdata.html){target="_blank"}
+
+-   [Quanteda Cheat Sheet](https://muellerstefan.net/files/quanteda-cheatsheet.pdf){target="_blank"}
+
+-   [Advancing Text Mining with R and quanteda: Methods Bites](https://www.mzes.uni-mannheim.de/socialsciencedatalab/article/advancing-text-mining/){target="_blank"}
+
+
+-   [Advancing Text Mining: Cornelius Puschmann](http://cbpuschmann.net/quanteda_mzes/){target="_blank"}
+
+-   [Text as data:  Avatar Kenneth Benoit. Director, LSE Data Science Institute](https://gist.github.com/kbenoit){target="_blank"}
+
+-   [Analysis of financial texts using R:  Kohei Watanabe](https://blog.koheiw.net/?p=1687){target="_blank"}
+
+-   [Using quanteda to analyze social media text:  Pablo Barbera](http://pablobarbera.com/text-analysis-vienna/code/03-quanteda-intro.html){target="_blank"}
+
+-   [Quanteda initiative](https://quanteda.org/){target="_blank"}
+
+-   [The 5 Packages You Should Know for Text Analysis with R](https://towardsdatascience.com/r-packages-for-text-analysis-ad8d86684adb){target="_blank"}
+
+-   [Text mining with R](https://www.networkx.nl/blog/text-mining-r-vikings/){target="_blank"}
+
+-   [Content analysis with R](https://content-analysis-with-r.com/2-metrics.html){target="_blank"}
+
+-   [Tutorial 4: Key term extraction](https://tm4ss.github.io/docs/Tutorial_4_Term_extraction.html){target="_blank"}
+
+
+
+<center>
+
+All rights of each image to whom they correspond.
+
+
+![](https://www.logolynx.com/images/logolynx/4d/4d3e98f7c3a69607414253c54137ac3f.png){fig-align="center" height="50"}
+
+</center>
+
+
+
+

@@ -174,7 +174,7 @@ rect.hclust(clust_dist, k = 5, border = "red")
 
 #Remember our second step: tokenize our corpus. 
 
-toks_himym <- tokens(corp_himym, #corpus from all the episodes from the first season
+toks_himym <- tokens(corp_himym, #corpus from all the episodes from all seasons
                      remove_punct = TRUE, #Remove punctuation of our texts
                      remove_separators = TRUE,  #Remove separators of our texts
                      remove_numbers = TRUE, #Remove numbers of our texts

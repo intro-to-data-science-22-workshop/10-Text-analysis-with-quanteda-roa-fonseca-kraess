@@ -1,3 +1,9 @@
+div.column {
+    width: 50%;
+    
+}
+
+
 hr.rounded {
   border: 2px solid #0a6aec;
   border-radius: 5px;
@@ -21,6 +27,17 @@ body, html{
     overflow:hidden;
 }
 
+.font_6 {
+  font-size: .6em; /* 14px/16=0.875em */
+}
+
+.font_5 {
+  font-size: .5em; /* 14px/16=0.875em */
+}
+
+.font_4 {
+  font-size: .4em; /* 14px/16=0.875em */
+}
 
 .font_title_2 {
   font-size: 1.2em; /* 14px/16=0.875em */
@@ -34,7 +51,9 @@ body, html{
   font-size: .5em; /* 14px/16=0.875em */
 }
 
-
+.font_7 {
+  font-size: .7em; /* 14px/16=0.875em */
+}
 
 
 .brxbig {
