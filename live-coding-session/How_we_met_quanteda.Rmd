@@ -1688,7 +1688,7 @@ If you can see, according to our rows, the phrase wait for it appears 80 times t
 
 ------------------------------------------------------------------------
 
-# 🔎 Sentiment analyis
+# 🔎 Sentiment analysis
 
 </br>
 
